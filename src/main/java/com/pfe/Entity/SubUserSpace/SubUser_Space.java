@@ -75,7 +75,7 @@ public class SubUser_Space {
 		this.sub_user = subUser;
 	}
 
-	public SUS_key getSua_key() {
+	public SUS_key getSus_key() {
 		return sus_key;
 	}
 

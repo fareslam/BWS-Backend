@@ -76,13 +76,13 @@ public class UserController {
 				return this.ur.userBySubUser(cin);
 	}
 	
-	  /* ******** ClientArea managment ****************/
-	  @PostMapping("/SubUserSapce/add")
+	  /* ******** Sub Userpace managment ****************/
+	  @PostMapping("/SubUserSpace/add")
 	  public SubUser_Space addSubUserSpace(@Valid @RequestBody SubUser_Space ss)  {
 		  return this.iu.addSubUser_Space(ss);
 	  }  
 	  
-	  @GetMapping("/SubUserSapce/all")
+	  @GetMapping("/SubUserSpace/all")
 	  public List<SubUser_Space> listSubUserSpaces()  {
 		  return this.iu.listSubUserspaces();
 	  } 
@@ -92,5 +92,12 @@ public class UserController {
 			User u = ur.findByCinu(cinu)
 					.orElseThrow(() ->new ResourceNotFoundException("Unkown User with CIN : " + cinu));
 		  return this.ur.listSpacesPerUserDevice(cinu);
+	  } 
+	  
+	  @GetMapping("/SpacesPerUserDevice2/{cinu}")
+	  public List<Space> listSubUserSpacesDevices(@PathVariable(value = "cinu") Long cinu) throws ResourceNotFoundException {
+			User u = ur.findByCinu(cinu)
+					.orElseThrow(() ->new ResourceNotFoundException("Unkown User with CIN : " + cinu));
+		  return this.ur.ScndlistSpacesPerUserDevice(cinu);
 	  } 
 }

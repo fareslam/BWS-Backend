@@ -43,4 +43,11 @@ public interface UserRepository extends JpaRepository <User,Long>{
 			+ "AND d.idSpace=s.idSpace "
 			+ "AND u.cinu =:cinu") 
 	public List<?> listSpacesPerUserDevice(@Param("cinu") Long cinu);
+	
+	
+	@Query("select s FROM Space s,User u,Device d,UserDevices ud "
+			+ "WHERE u.cinu=ud.udk.cinu AND ud.udk.reference=d.reference "
+			+ "AND d.idSpace=s.idSpace "
+			+ "AND u.cinu =:cinu") 
+	public List<Space> ScndlistSpacesPerUserDevice(@Param("cinu") Long cinu);
 }
