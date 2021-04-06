@@ -189,11 +189,23 @@ public class AdminController {
 		  }
 	  
 	
+		
+		@DeleteMapping("/area/delete/{idArea}")
+		  public  Map<String, Boolean> deleteArea(@PathVariable(value = "idArea") Long idArea) throws ResourceNotFoundException{
+			  
+			  return this.ia.deleteArea(idArea);
+			  
+		  }
 	  /* ******** ClientArea managment ****************/
 	  @PostMapping("/clientArea/add")
 	  public ClientArea addClientArea(@Valid @RequestBody ClientArea ca)  {
 		  return this.ia.addClientArea(ca);
 	  }  
+	  
+	  @GetMapping("/clientArea/all")
+	  public List<ClientArea> listClientArea()  {
+		  return this.ia.listClientArea();
+	  } 
 
 	  /* ******** Space managment ****************/
 	  @PostMapping("/space/add")
@@ -206,7 +218,12 @@ public class AdminController {
 		  return this.ia.listSpaces();
 	  } 
 
-	  
+		@DeleteMapping("/space/delete/{idSpace}")
+		  public  Map<String, Boolean> deleteSpace(@PathVariable(value = "idSpace") Long idSpace) throws ResourceNotFoundException{
+			  
+			  return this.ia.deleteSpace(idSpace);
+			  
+		  }
 	  
 }
 	

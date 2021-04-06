@@ -47,11 +47,16 @@ public interface InterfaceAdmin {
 	  /*Area Management*/
 	  public Area addArea(Area a);
 	  public List<Area> listAreas();
+	  public Map<String, Boolean> deleteArea(Long idArea)  throws ResourceNotFoundException;
 
 	  /*Space Management*/
 	  public Space addSpace(Space s);
 	  public List<Space> listSpaces();
+	  public Map<String, Boolean> deleteSpace(Long idSpace)  throws ResourceNotFoundException;
+
 	  
 	  /*Client Area Management*/
 	  public ClientArea addClientArea(ClientArea ca);
+	  public  List<ClientArea> listClientArea();
+
 }

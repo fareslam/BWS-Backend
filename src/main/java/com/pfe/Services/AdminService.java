@@ -325,6 +325,34 @@ public class AdminService implements InterfaceAdmin {
 			return new ResponseEntity<>(this.cr.save(cons), HttpStatus.CREATED);
 		}
 
+	@Override
+	public Map<String, Boolean> deleteArea(Long idArea) throws ResourceNotFoundException {
+		Area c = ar.findByIdArea(idArea)
+				.orElseThrow(() -> new ResourceNotFoundException("Unkown Area with ID : " + idArea));
+		
+		ar.delete(c);
+		
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("deleted Area !", Boolean.TRUE);
+		return response;	}
+
+	@Override
+	public Map<String, Boolean> deleteSpace(Long idSpace) throws ResourceNotFoundException {
+		Space s = sr.findByIdSpace(idSpace)
+				.orElseThrow(() -> new ResourceNotFoundException("Unkown Space with ID : " + idSpace));
+		
+		sr.delete(s);
+		
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("deleted Space !", Boolean.TRUE);
+		return response;
+	}
+
+	@Override
+	public List<ClientArea> listClientArea() {
+		// TODO Auto-generated method stub
+		return this.car.findAll();	}
+
 	}
 
 	

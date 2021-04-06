@@ -23,6 +23,8 @@ import com.pfe.Entity.MessageResponse;
 import com.pfe.Entity.SignupRequest;
 import com.pfe.Entity.SubUser;
 import com.pfe.Entity.User;
+import com.pfe.Entity.ClientArea.ClientArea;
+import com.pfe.Entity.SubUserSpace.SubUser_Space;
 import com.pfe.Repository.SubUserRepository;
 import com.pfe.Repository.UserRepository;
 import com.pfe.Services.InterfaceUser;
@@ -72,5 +74,16 @@ public class UserController {
 	public Optional<User> UserBySubUser(@PathVariable(value = "cin") Long cin) throws ResourceNotFoundException {
 				return this.ur.userBySubUser(cin);
 	}
+	
+	  /* ******** ClientArea managment ****************/
+	  @PostMapping("/SubUserSapce/add")
+	  public SubUser_Space addSubUserSpace(@Valid @RequestBody SubUser_Space ss)  {
+		  return this.iu.addSubUser_Space(ss);
+	  }  
+	  
+	  @GetMapping("/SubUserSapce/all")
+	  public List<SubUser_Space> listSubUserSpaces()  {
+		  return this.iu.listSubUserspaces();
+	  } 
 	
 }

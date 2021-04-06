@@ -23,8 +23,10 @@ import com.pfe.Entity.Role;
 import com.pfe.Entity.SignupRequest;
 import com.pfe.Entity.SubUser;
 import com.pfe.Entity.User;
+import com.pfe.Entity.SubUserSpace.SubUser_Space;
 import com.pfe.Repository.RoleRepository;
 import com.pfe.Repository.SubUserRepository;
+import com.pfe.Repository.SubUserSpaceRepository;
 import com.pfe.Repository.UserRepository;
 import com.pfe.exception.ResourceNotFoundException;
 
@@ -36,6 +38,9 @@ public class UserService implements InterfaceUser {
 
 	@Autowired
 	SubUserRepository sur;
+	
+	@Autowired
+	SubUserSpaceRepository susr;
 	
 	@Autowired
 	UserRepository ur;
@@ -146,6 +151,20 @@ public class UserService implements InterfaceUser {
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("deleted Sub User !", Boolean.TRUE);
 		return response;
+	}
+
+
+	@Override
+	public SubUser_Space addSubUser_Space(SubUser_Space sus) {
+		// TODO Auto-generated method stub
+		return this.susr.save(sus);
+	}
+
+
+	@Override
+	public List<SubUser_Space> listSubUserspaces() {
+		// TODO Auto-generated method stub
+		return this.susr.findAll();
 	}
 
 
