@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "spring.administration.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.administration.driver-class-name'"
+  },
+  {
+    "name": "spring.bws.password",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.bws.password'"
+  },
+  {
+    "name": "spring.bws.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.bws.driver-class-name'"
+  }
+]}
