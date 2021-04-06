@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pfe.Entity.MessageResponse;
 import com.pfe.Entity.SignupRequest;
+import com.pfe.Entity.Space;
 import com.pfe.Entity.SubUser;
 import com.pfe.Entity.User;
 import com.pfe.Entity.ClientArea.ClientArea;
@@ -86,4 +87,10 @@ public class UserController {
 		  return this.iu.listSubUserspaces();
 	  } 
 	
+	  @GetMapping("/SpacesPerUserDevice/{cinu}")
+	  public List<?> listSubUserSpacesDevice(@PathVariable(value = "cinu") Long cinu) throws ResourceNotFoundException {
+			User u = ur.findByCinu(cinu)
+					.orElseThrow(() ->new ResourceNotFoundException("Unkown User with CIN : " + cinu));
+		  return this.ur.listSpacesPerUserDevice(cinu);
+	  } 
 }
