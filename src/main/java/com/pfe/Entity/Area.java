@@ -21,8 +21,7 @@ public class Area {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long idArea;
 
-	private Float longitude;
-	private Float latitude;
+	private String geojson;
 	private String name;
 	
 	@OneToMany(mappedBy="area",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
@@ -32,20 +31,14 @@ public class Area {
 	@OneToMany(mappedBy="area",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<ClientArea> list_clients_area;
 	
-	public Float getLongitude() {
-		return longitude;
+ 
+
+	public String getGeojson() {
+		return geojson;
 	}
 
-	public void setLongitude(Float longitude) {
-		this.longitude = longitude;
-	}
-
-	public Float getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(Float latitude) {
-		this.latitude = latitude;
+	public void setGeojson(String geojson) {
+		this.geojson = geojson;
 	}
 
 	public String getName() {

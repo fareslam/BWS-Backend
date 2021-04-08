@@ -15,6 +15,7 @@ import com.pfe.Entity.Role;
 import com.pfe.Entity.Space;
 import com.pfe.Entity.SubUser;
 import com.pfe.Entity.User;
+import com.pfe.Entity.SubUserSpace.SubUser_Space;
 
 
 @Repository
@@ -27,10 +28,6 @@ public interface UserRepository extends JpaRepository <User,Long>{
 	
 	@Query("select u FROM User u,SubUser su WHERE u.cinu=su.cin AND u.cinu =:cinu") 
 	public Optional<User> userBySubUser(@Param("cinu") Long cinu);
-
-
-	
-	
 	
 	@Query("select su FROM SubUser su,User u "
 			+ "WHERE su.cinu=u.cinu"
@@ -50,4 +47,11 @@ public interface UserRepository extends JpaRepository <User,Long>{
 			+ "AND d.idSpace=s.idSpace "
 			+ "AND u.cinu =:cinu") 
 	public List<Space> ScndlistSpacesPerUserDevice(@Param("cinu") Long cinu);
+	
+	
+	
+	@Query("select s FROM SubUser_Space s,SubUser su,User u "
+			+ "WHERE s.sus_key.cin=su.cin AND su.cinu=u.cinu"
+			+ " AND u.cinu =:cinu") 	
+	public List<SubUser_Space> listSubUsersInSpaceByUser(@Param("cinu") Long cinu);
 }

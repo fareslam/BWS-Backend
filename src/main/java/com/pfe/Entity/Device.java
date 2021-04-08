@@ -24,8 +24,7 @@ public class Device {
 	@Id	
 	private String reference;
 	private String name;
-	private Float longitude;
-	private Float latitude;
+
 	
 	@OneToMany(mappedBy="device",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<UserDevices> list_user_devices;
@@ -62,11 +61,10 @@ public class Device {
 
 
 	public Device() {}
-	public Device(String reference, String name, Float longitude, Float latitude, Space space,Constraint_CO2 constraint_co2) {
+	public Device(String reference, String name, Space space,Constraint_CO2 constraint_co2) {
 		this.reference = reference;
 		this.name = name;
-		this.longitude = longitude;
-		this.latitude = latitude;
+
 		this.space = space;
 		this.constraint_co2 = constraint_co2;
 	}
@@ -113,21 +111,7 @@ public class Device {
 		this.list_rt_CO2 = list_rt_CO2;
 	}
 
-	public Float getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(Float longitude) {
-		this.longitude = longitude;
-	}
-
-	public Float getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(Float latitude) {
-		this.latitude = latitude;
-	}	
+	
 	
 	@JsonManagedReference(value="DevicesUser")
 	public List<UserDevices> getList_user_devices() {

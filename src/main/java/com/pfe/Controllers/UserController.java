@@ -1,4 +1,4 @@
-package com.pfe.Controllers;
+	package com.pfe.Controllers;
 
 import java.util.HashSet;
 import java.util.List;
@@ -76,7 +76,7 @@ public class UserController {
 				return this.ur.userBySubUser(cin);
 	}
 	
-	  /* ******** Sub Userpace managment ****************/
+	  /* ******** Sub User space managment ****************/
 	  @PostMapping("/SubUserSpace/add")
 	  public SubUser_Space addSubUserSpace(@Valid @RequestBody SubUser_Space ss)  {
 		  return this.iu.addSubUser_Space(ss);
@@ -86,6 +86,15 @@ public class UserController {
 	  public List<SubUser_Space> listSubUserSpaces()  {
 		  return this.iu.listSubUserspaces();
 	  } 
+	  
+		@GetMapping("/{cinu}/SubUserSpace/all")
+		public List<SubUser_Space> listSubUserSpacePerUser(@PathVariable(value = "cinu") Long cinu) throws ResourceNotFoundException {
+			User u = ur.findByCinu(cinu)
+					.orElseThrow(() -> new ResourceNotFoundException("Unkown User with CIN : " + cinu));
+			
+			return this.ur.listSubUsersInSpaceByUser(cinu);
+		}
+		
 	
 	  @GetMapping("/SpacesPerUserDevice/{cinu}")
 	  public List<?> listSubUserSpacesDevice(@PathVariable(value = "cinu") Long cinu) throws ResourceNotFoundException {

@@ -97,8 +97,7 @@ public class AdminService implements InterfaceAdmin {
 		}
 		Device device=new Device();
 		device.setReference(d.getReference());
-		device.setLongitude(d.getLatitude());
-		device.setLatitude(d.getLatitude());
+
 		device.setName(d.getName());
 		device.setIdConstraint(d.getIdConstraint());
 		device.setIdSpace(d.getIdSpace());
@@ -113,8 +112,7 @@ public class AdminService implements InterfaceAdmin {
 
 		Device device = dr.findByReference(reference)
 				.orElseThrow(() -> new ResourceNotFoundException("Unkown device with reference " +reference));
-		device.setLongitude(d.getLatitude());
-		device.setLatitude(d.getLatitude());
+
 		device.setName(d.getName());
 		device.setIdConstraint(d.getIdConstraint());
 		device.setIdSpace(d.getIdSpace());
