@@ -225,6 +225,13 @@ public class AdminController {
 			  
 		  }
 	  
+		@PutMapping("/space/update/{idSpace}")	
+		public ResponseEntity<?> updateDevice(@PathVariable(value = "idSpace") Long idSpace, @Valid @RequestBody Space s) 	
+		throws ResourceNotFoundException{
+			
+			return this.ia.updateSpace(idSpace, s);
+		}
+		
 }
 	
 	

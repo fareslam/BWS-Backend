@@ -53,7 +53,7 @@ public interface InterfaceAdmin {
 	  public Space addSpace(Space s);
 	  public List<Space> listSpaces();
 	  public Map<String, Boolean> deleteSpace(Long idSpace)  throws ResourceNotFoundException;
-
+	  public ResponseEntity<?> updateSpace (Long idSpace,Space s) throws ResourceNotFoundException;
 	  
 	  /*Client Area Management*/
 	  public ClientArea addClientArea(ClientArea ca);

@@ -351,6 +351,19 @@ public class AdminService implements InterfaceAdmin {
 		// TODO Auto-generated method stub
 		return this.car.findAll();	}
 
+	@Override
+	public ResponseEntity<?> updateSpace(@PathVariable(value = "idSpace") Long idSpace, @Valid @RequestBody Space s) throws ResourceNotFoundException {
+		// TODO Auto-generated method stub
+		Space space = sr.findByIdSpace(idSpace)
+				.orElseThrow(() -> new ResourceNotFoundException("Unkown space with id " +idSpace));
+
+		space.setName(s.getName());
+		space.setLatitude(s.getLatitude());
+		space.setLongitude(s.getLongitude());
+		space.setIdArea(s.getIdArea());
+		return new ResponseEntity<>(this.sr.save(space), HttpStatus.CREATED);
+	}
+
 	}
 
 	
