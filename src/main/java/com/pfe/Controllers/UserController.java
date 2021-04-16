@@ -109,4 +109,12 @@ public class UserController {
 					.orElseThrow(() ->new ResourceNotFoundException("Unkown User with CIN : " + cinu));
 		  return this.ur.ScndlistSpacesPerUserDevice(cinu);
 	  } 
+	  
+	  
+	  @GetMapping("/AreasPerUser/{cinu}")
+	  public List<?> listAreasPerUser(@PathVariable(value = "cinu") Long cinu) throws ResourceNotFoundException {
+			User u = ur.findByCinu(cinu)
+					.orElseThrow(() ->new ResourceNotFoundException("Unkown User with CIN : " + cinu));
+		  return this.ur.listAreasPerUser(cinu);
+	  } 
 }

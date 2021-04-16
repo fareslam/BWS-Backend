@@ -54,4 +54,11 @@ public interface UserRepository extends JpaRepository <User,Long>{
 			+ "WHERE s.sus_key.cin=su.cin AND su.cinu=u.cinu"
 			+ " AND u.cinu =:cinu") 	
 	public List<SubUser_Space> listSubUsersInSpaceByUser(@Param("cinu") Long cinu);
+	
+	
+	
+	@Query("select a.geojson FROM Area a,User u,ClientArea ca "
+			+ "WHERE u.cinu=ca.ua_key.cinu AND ca.ua_key.idArea=a.idArea "
+			+ "AND u.cinu =:cinu") 
+	public List<?> listAreasPerUser(@Param("cinu") Long cinu);
 }
