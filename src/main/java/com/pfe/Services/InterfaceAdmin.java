@@ -2,6 +2,7 @@ package com.pfe.Services;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -42,7 +43,7 @@ public interface InterfaceAdmin {
 	  public List<Constraint_CO2>listConstraints();
 	  public Map<String, Boolean> deleteConstraint(Long idConstraint)  throws ResourceNotFoundException;
 		public ResponseEntity<?> updateConstraint (Long idConstraint,@Valid @RequestBody Constraint_CO2 c) throws ResourceNotFoundException;
-
+		  public Optional<Constraint_CO2> getConstraint_CO2(Long idConstraint);
 	  
 	  /*Area Management*/
 	  public Area addArea(Area a);
@@ -54,6 +55,7 @@ public interface InterfaceAdmin {
 	  public List<Space> listSpaces();
 	  public Map<String, Boolean> deleteSpace(Long idSpace)  throws ResourceNotFoundException;
 	  public ResponseEntity<?> updateSpace (Long idSpace,Space s) throws ResourceNotFoundException;
+	  public Optional<Space> getSpace(Long idSpace);
 	  
 	  /*Client Area Management*/
 	  public ClientArea addClientArea(ClientArea ca);

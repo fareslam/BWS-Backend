@@ -161,7 +161,12 @@ public class AdminController {
 		return this.ia.updateConstraint(idConstraint, c);
 	}
 	
-	
+	  @GetMapping("/constraint/{idConstraint}")
+	  public   Optional<Constraint_CO2> getConstraint(@PathVariable(value = "idConstraint") Long idConstraint) {
+		  
+		  return this.ia.getConstraint_CO2(idConstraint);
+		  
+	  }
 	
 	@DeleteMapping("/constraint/delete/{idConstraint}")
 	  public  Map<String, Boolean> deleteConstraint(@PathVariable(value = "idConstraint") Long idConstraint) throws ResourceNotFoundException{
@@ -217,7 +222,13 @@ public class AdminController {
 	  public List<Space> addSpace()  {
 		  return this.ia.listSpaces();
 	  } 
-
+	  @GetMapping("/space/{idSpace}")
+	  public   Optional<Space> getSpace(@PathVariable(value = "idSpace") Long idSpace) {
+		  
+		  return this.ia.getSpace(idSpace);
+		  
+	  }
+  
 		@DeleteMapping("/space/delete/{idSpace}")
 		  public  Map<String, Boolean> deleteSpace(@PathVariable(value = "idSpace") Long idSpace) throws ResourceNotFoundException{
 			  

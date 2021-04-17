@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -364,6 +365,17 @@ public class AdminService implements InterfaceAdmin {
 		return new ResponseEntity<>(this.sr.save(space), HttpStatus.CREATED);
 	}
 
+	@Override
+	public Optional<Space> getSpace(@PathVariable(value = "idSpace") Long idSpace) {
+		// TODO Auto-generated method stub
+		return this.sr.findByIdSpace(idSpace);
+	}
+
+	@Override
+	  public Optional<Constraint_CO2> getConstraint_CO2(@PathVariable(value = "idConstraint") Long idConstraint) {
+		// TODO Auto-generated method stub
+		return this.cr.findByIdConstraint(idConstraint);
+	}
 	}
 
 	
