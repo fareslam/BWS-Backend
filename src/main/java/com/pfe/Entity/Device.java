@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -23,20 +25,24 @@ import com.pfe.Entity.UserDevices.UserDevices;
 public class Device {
 	@Id	
 	private String reference;
+	@NotBlank
+    @Size(min = 3, max = 20)
 	private String name;
 
-	
+	public String imageurl;
 	@OneToMany(mappedBy="device",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<UserDevices> list_user_devices;
 	
 	@ManyToOne
     @JoinColumn(name = "idSpace",insertable=false,updatable=false)
     private Space space;
+	@NotBlank
 	private Long idSpace;
 	
 	@ManyToOne
     @JoinColumn(name = "idConstraint",insertable=false,updatable=false)
     private Constraint_CO2 constraint_co2;
+	@NotBlank
 	private Long idConstraint;
 	
 	@OneToMany(mappedBy="device",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
@@ -60,11 +66,19 @@ public class Device {
 	}
 
 
+	public String getImageurl() {
+		return imageurl;
+	}
+
+	public void setImageurl(String imageurl) {
+		this.imageurl = imageurl;
+	}
+
 	public Device() {}
-	public Device(String reference, String name, Space space,Constraint_CO2 constraint_co2) {
+	public Device(String reference, String name,String im, Space space,Constraint_CO2 constraint_co2) {
 		this.reference = reference;
 		this.name = name;
-
+this.imageurl=im;
 		this.space = space;
 		this.constraint_co2 = constraint_co2;
 	}

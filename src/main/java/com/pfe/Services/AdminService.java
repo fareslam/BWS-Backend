@@ -91,18 +91,40 @@ public class AdminService implements InterfaceAdmin {
 	/*adding a device */
 	@Override
 	public ResponseEntity<?> addDevice(@Valid @RequestBody Device d) {
+		String ch=d.getName();
+		
 		if (dr.existsByReference(d.getReference())) {
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Error: Device's Reference is already taken!"));
 		}
+		
+		
+		if ((!cr.existsByIdConstraint(d.getIdConstraint()))) {
+			return ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Error: Inexistant Constraint for this device!"));
+		}
+		
+		
+		if ((!sr.existsByIdSpace(d.getIdSpace()))) {
+			return ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Error: Inexistant Space for this device!"));
+		}
+		
 		Device device=new Device();
 		device.setReference(d.getReference());
-
+		device.setImageurl(d.getImageurl());
 		device.setName(d.getName());
 		device.setIdConstraint(d.getIdConstraint());
 		device.setIdSpace(d.getIdSpace());
 		
+		if ((ch.length()==0)||(ch==null)) 	return ResponseEntity
+				.badRequest()
+				.body(new MessageResponse("Error in name!"));
+
+
 		return new ResponseEntity<>(this.dr.save(device), HttpStatus.CREATED);
 	}
 

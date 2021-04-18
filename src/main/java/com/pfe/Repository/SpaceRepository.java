@@ -11,7 +11,7 @@ import com.pfe.Entity.SubUser;
 
 @Repository
 public interface SpaceRepository  extends JpaRepository <Space,Long>{
-
+	Boolean existsByIdSpace(Long idSpace);
 	Optional<Space> findByIdSpace(Long idSpace);
 
 }

@@ -10,7 +10,7 @@ import com.pfe.Entity.Device;
 
 @Repository
 public interface ConstraintRepository extends JpaRepository<Constraint_CO2,Long>{
-
+	Boolean existsByIdConstraint(Long idConstraint);
 	Optional<Constraint_CO2> findByIdConstraint(Long idConstraint);
 
 }
