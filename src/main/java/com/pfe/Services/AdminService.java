@@ -92,6 +92,7 @@ public class AdminService implements InterfaceAdmin {
 	@Override
 	public ResponseEntity<?> addDevice(@Valid @RequestBody Device d) {
 		String ch=d.getName();
+		String img=d.getImageurl();
 		
 		if (dr.existsByReference(d.getReference())) {
 			return ResponseEntity
@@ -120,10 +121,14 @@ public class AdminService implements InterfaceAdmin {
 		device.setIdConstraint(d.getIdConstraint());
 		device.setIdSpace(d.getIdSpace());
 		
-		if ((ch.length()==0)||(ch==null)) 	return ResponseEntity
-				.badRequest()
+		if ((ch.length()==0)||(ch==null)) 
+			return ResponseEntity.badRequest()
 				.body(new MessageResponse("Error in name!"));
 
+		
+		if ((img.length()==0)||(img==null) )
+			return ResponseEntity.badRequest()
+				.body(new MessageResponse("Please choose a picture !"));
 
 		return new ResponseEntity<>(this.dr.save(device), HttpStatus.CREATED);
 	}
@@ -136,9 +141,24 @@ public class AdminService implements InterfaceAdmin {
 		Device device = dr.findByReference(reference)
 				.orElseThrow(() -> new ResourceNotFoundException("Unkown device with reference " +reference));
 
+String ch=d.getName();
+		
+	
+		
+
+		
+	
+		device.setReference(d.getReference());
+		device.setImageurl(d.getImageurl());
 		device.setName(d.getName());
 		device.setIdConstraint(d.getIdConstraint());
 		device.setIdSpace(d.getIdSpace());
+		
+		if ((ch.length()==0)||(ch==null)) 	return ResponseEntity
+				.badRequest()
+				.body(new MessageResponse("Error in name!"));
+
+
 		return new ResponseEntity<>(this.dr.save(device), HttpStatus.CREATED);
 	}
 

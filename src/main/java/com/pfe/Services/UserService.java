@@ -140,6 +140,67 @@ public class UserService implements InterfaceUser {
 		return ResponseEntity.ok(new MessageResponse("SubUser registered successfully!"));
 	}
 
+public ResponseEntity<?> UpdateSubUser(@PathVariable(value = "cinu") Long cinu,
+		@PathVariable(value = "cin") Long cin,@Valid @RequestBody SignupRequest signUpRequest)throws ResourceNotFoundException  {
+		
+		User u = ur.findByCinu(cinu)
+				.orElseThrow(() -> new ResourceNotFoundException("Unkown User with CIN : " + cinu));
+		
+		SubUser subuser = sur.findByCin(cin)
+				.orElseThrow(() -> new ResourceNotFoundException("Unkown User with CIN : " + cin));
+		
+		
+	
+
+			
+
+		Set<String> strRoles = signUpRequest.getRole();
+		Set<Role> roles = new HashSet<>();
+		if (strRoles == null) {
+			Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+			roles.add(userRole);
+		} else {
+			strRoles.forEach(role -> {
+				switch (role) {
+				case "read":
+					
+					Role readRole = roleRepository.findByName(ERole.ROLE_SUREAD)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					roles.add(readRole);
+	
+					subuser.setRoles(roles);
+					sur.save(subuser);
+					
+					break;
+					
+				case "write":
+					
+					Role writeRole = roleRepository.findByName(ERole.ROLE_SUWRITE)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					roles.add(writeRole);
+					subuser.setRoles(roles);
+					sur.save(subuser);
+			
+
+					break;
+			
+					
+				default:
+					Role suserRole = roleRepository.findByName(ERole.ROLE_SUREAD)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					roles.add(suserRole);
+
+					
+					subuser.setRoles(roles);
+					sur.save(subuser);
+				}
+			});
+		}
+
+		return ResponseEntity.ok(new MessageResponse("Role Updated successfully!"));
+	}
+
 
 	@Override
 	public Map<String, Boolean> deleteSubUser(@PathVariable(value = "cin") Long cin) throws ResourceNotFoundException {
@@ -166,6 +227,8 @@ public class UserService implements InterfaceUser {
 		// TODO Auto-generated method stub
 		return this.susr.findAll();
 	}
+
+	
 
 
 	

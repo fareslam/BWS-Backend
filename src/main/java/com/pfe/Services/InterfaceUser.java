@@ -16,6 +16,7 @@ public interface InterfaceUser {
 
 	/* SubUser Management */
 	public ResponseEntity<?> addSubUser(Long cinu,SignupRequest signUpRequest) throws ResourceNotFoundException ;
+	public ResponseEntity<?> UpdateSubUser(Long cinu,Long cin,SignupRequest signUpRequest) throws ResourceNotFoundException ;
 	public Map<String, Boolean> deleteSubUser(Long cin) throws ResourceNotFoundException; 
 
 	 /*Employee Space Management*/
