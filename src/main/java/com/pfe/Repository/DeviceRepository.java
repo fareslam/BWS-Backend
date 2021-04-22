@@ -13,5 +13,5 @@ public interface DeviceRepository extends JpaRepository<Device,String>{
 
 	Boolean existsByReference(String reference);
 
-	Optional<Device> findByReference(String reference);
+	Device findByReference(String reference);
 }

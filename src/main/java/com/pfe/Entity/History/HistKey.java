@@ -31,6 +31,16 @@ public class HistKey implements Serializable{
 	public void setIdAlert(Long idAlert) {
 		this.idAlert = idAlert;
 	}
+
+	public HistKey() {
+		super();
+	}
+
+	public HistKey(Long idRt, Long idAlert) {
+
+		this.idRt = idRt;
+		this.idAlert = idAlert;
+	}
 	
 	
 	

@@ -77,9 +77,9 @@ public class AdminService implements InterfaceAdmin {
 	
 	/*delete device */
 	@Override
-	public Map<String, Boolean>  deleteDevice(@PathVariable(value = "reference") String reference) throws ResourceNotFoundException {
-			Device d = dr.findByReference(reference)
-					.orElseThrow(() -> new ResourceNotFoundException("Unkown device with reference : " + reference));
+	public Map<String, Boolean>  deleteDevice(@PathVariable(value = "reference") String reference) throws ResourceNotFoundException,Exception {
+			Device d = dr.findByReference(reference);
+		if (d==null) {throw new Exception ("unkown device with ref "+reference);}
 			
 				dr.delete(d);
 			
@@ -138,8 +138,8 @@ public class AdminService implements InterfaceAdmin {
 	public ResponseEntity<?> updateDevice(@PathVariable(value = "reference") String reference, @Valid @RequestBody Device d) 
 			throws ResourceNotFoundException{
 
-		Device device = dr.findByReference(reference)
-				.orElseThrow(() -> new ResourceNotFoundException("Unkown device with reference " +reference));
+		Device device = dr.findByReference(reference);
+		if (device==null) {	return new ResponseEntity<>("device with ref"+ reference+" is not found", HttpStatus.NOT_FOUND);}
 
 String ch=d.getName();
 		
@@ -278,10 +278,11 @@ String ch=d.getName();
 
 	/*get device by ref  */
 	@Override
-	public Device getDeviceByReference(@PathVariable(value = "reference") String reference) throws ResourceNotFoundException {
+	public ResponseEntity<?> getDeviceByReference(@PathVariable(value = "reference") String reference) throws ResourceNotFoundException {
 
-		return this.dr.findByReference(reference)
-				.orElseThrow(() -> new ResourceNotFoundException("Unknown device with reference:" + reference));
+		Device d= this.dr.findByReference(reference);
+		 {	return new ResponseEntity<>("device with ref"+ reference+" is not found", HttpStatus.NOT_FOUND);}
+
 	}
 
 	/* get User By Cin*/
@@ -339,10 +340,10 @@ String ch=d.getName();
 	}
 
 	@Override
-	public Map<String, Boolean> deleteConstraint(@PathVariable(value = "idConstraint") Long idConstraint) throws ResourceNotFoundException {
+	public Map<String, Boolean> deleteConstraint(@PathVariable(value = "idConstraint") Long idConstraint) throws ResourceNotFoundException,Exception {
 		// TODO Auto-generated method stub
-		Constraint_CO2 c = cr.findByIdConstraint(idConstraint)
-				.orElseThrow(() -> new ResourceNotFoundException("Unkown device with reference : " + idConstraint));
+		Constraint_CO2 c = cr.findByIdConstraint(idConstraint);
+				if (c==null) { throw new Exception("error");}	
 		
 			cr.delete(c);
 		
@@ -352,11 +353,11 @@ String ch=d.getName();
 	}
 
 	@Override
-	public ResponseEntity<?> updateConstraint(@PathVariable(value = "idConstraint") Long idConstraint, @Valid @RequestBody Constraint_CO2 c) throws ResourceNotFoundException {
+	public ResponseEntity<?> updateConstraint(@PathVariable(value = "idConstraint") Long idConstraint, @Valid @RequestBody Constraint_CO2 c) throws ResourceNotFoundException ,Exception {
 	
 
-		Constraint_CO2 cons = cr.findByIdConstraint(idConstraint)
-					.orElseThrow(() -> new ResourceNotFoundException("Unkown constraint with id " +idConstraint));
+		Constraint_CO2 cons = cr.findByIdConstraint(idConstraint);
+				if (cons==null) { throw new Exception("error");}	
 		cons.setIdConstraint(c.getIdConstraint());
 		cons.setMax_value(c.getMax_value());
 		cons.setMin_value(c.getMin_value());
@@ -414,9 +415,15 @@ String ch=d.getName();
 	}
 
 	@Override
-	  public Optional<Constraint_CO2> getConstraint_CO2(@PathVariable(value = "idConstraint") Long idConstraint) {
+	  public ResponseEntity<?>  getConstraint_CO2(@PathVariable(value = "idConstraint") Long idConstraint) {
 		// TODO Auto-generated method stub
-		return this.cr.findByIdConstraint(idConstraint);
+		Constraint_CO2 c= this.cr.findByIdConstraint(idConstraint);
+		if (c==null) {
+			return new ResponseEntity<>("Unkown constraint with id"+idConstraint, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(c, HttpStatus.OK);
+		
+		
 	}
 	}
 

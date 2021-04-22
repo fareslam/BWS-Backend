@@ -61,4 +61,13 @@ public interface UserRepository extends JpaRepository <User,Long>{
 			+ "WHERE u.cinu=ca.ua_key.cinu AND ca.ua_key.idArea=a.idArea "
 			+ "AND u.cinu =:cinu") 
 	public List<?> listAreasPerUser(@Param("cinu") Long cinu);
+	
+	
+	
+@Query("select d FROM Device d, UserDevices ud, User u "
+	+ "WHERE ud.udk.cinu =u.cinu "
+	+ "AND ud.udk.reference=d.reference "
+	+ "AND u.cinu =:cinu")
+public List<Device> listDevicesPerUser(@Param("cinu") Long cinu);
+
 }

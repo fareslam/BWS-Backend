@@ -13,7 +13,26 @@ public class Alert_C02 {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long idAlert;
 	private String message;
-	
+	public long getIdAlert() {
+		return idAlert;
+	}
+	public void setIdAlert(long idAlert) {
+		this.idAlert = idAlert;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public Alert_C02(String message) {
+		super();
+		this.message = message;
+	}
+
+
+
+public Alert_C02() {}
 	
 	
 }

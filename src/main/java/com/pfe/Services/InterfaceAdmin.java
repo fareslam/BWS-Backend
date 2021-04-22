@@ -22,11 +22,11 @@ import com.pfe.exception.ResourceNotFoundException;
 public interface InterfaceAdmin {
 	
 	/* Device Management */
-	public Map<String, Boolean> deleteDevice (String reference) throws ResourceNotFoundException;
+	public Map<String, Boolean> deleteDevice (String reference) throws ResourceNotFoundException, Exception;
 	public ResponseEntity<?> addDevice (@Valid @RequestBody Device d);
 	public ResponseEntity<?> updateDevice (String reference,Device d) throws ResourceNotFoundException;
 	public List<Device> listDevices();
-	public Device getDeviceByReference(String reference)throws ResourceNotFoundException;
+	public ResponseEntity<?> getDeviceByReference(String reference)throws ResourceNotFoundException;
 	
 	/* User Management */
 	public Map<String, Boolean> deleteUser(Long cinu)  throws ResourceNotFoundException;
@@ -41,9 +41,9 @@ public interface InterfaceAdmin {
 	  /*Constraint managment */
 	  public Constraint_CO2 addConstraint(@Valid @RequestBody Constraint_CO2 c);
 	  public List<Constraint_CO2>listConstraints();
-	  public Map<String, Boolean> deleteConstraint(Long idConstraint)  throws ResourceNotFoundException;
-		public ResponseEntity<?> updateConstraint (Long idConstraint,@Valid @RequestBody Constraint_CO2 c) throws ResourceNotFoundException;
-		  public Optional<Constraint_CO2> getConstraint_CO2(Long idConstraint);
+	  public Map<String, Boolean> deleteConstraint(Long idConstraint)  throws ResourceNotFoundException, Exception;
+		public ResponseEntity<?> updateConstraint (Long idConstraint,@Valid @RequestBody Constraint_CO2 c) throws ResourceNotFoundException, Exception;
+		  public ResponseEntity<?> getConstraint_CO2(Long idConstraint);
 	  
 	  /*Area Management*/
 	  public Area addArea(Area a);

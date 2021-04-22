@@ -62,7 +62,7 @@ public class AdminController {
 
 	/* ************** Device Management ******************/
 	@DeleteMapping("/device/delete/{reference}")
-	public Map<String, Boolean>  deleteDevice(@PathVariable(value = "reference") String reference) throws ResourceNotFoundException{
+	public Map<String, Boolean>  deleteDevice(@PathVariable(value = "reference") String reference) throws ResourceNotFoundException, Exception{
 		
 		return this.ia.deleteDevice(reference);
 	}
@@ -94,7 +94,7 @@ public class AdminController {
 	
 	
 	@GetMapping("/device/{reference}")	
-	public Device getDeviceByReference(@PathVariable(value = "reference") String reference)throws ResourceNotFoundException{
+	public ResponseEntity<?>  getDeviceByReference(@PathVariable(value = "reference") String reference)throws ResourceNotFoundException{
 		return this.ia.getDeviceByReference(reference);
 		
 		
@@ -156,20 +156,20 @@ public class AdminController {
 	
 	
 	@PutMapping("/constraint/update/{idConstraint}")	
-	public ResponseEntity<?> updateConstraint(@PathVariable(value = "idConstraint") Long idConstraint, @Valid @RequestBody Constraint_CO2 c) throws ResourceNotFoundException{
+	public ResponseEntity<?> updateConstraint(@PathVariable(value = "idConstraint") Long idConstraint, @Valid @RequestBody Constraint_CO2 c) throws ResourceNotFoundException, Exception{
 		
 		return this.ia.updateConstraint(idConstraint, c);
 	}
 	
 	  @GetMapping("/constraint/{idConstraint}")
-	  public   Optional<Constraint_CO2> getConstraint(@PathVariable(value = "idConstraint") Long idConstraint) {
+	  public    ResponseEntity<?> getConstraint(@PathVariable(value = "idConstraint") Long idConstraint) {
 		  
 		  return this.ia.getConstraint_CO2(idConstraint);
 		  
 	  }
 	
 	@DeleteMapping("/constraint/delete/{idConstraint}")
-	  public  Map<String, Boolean> deleteConstraint(@PathVariable(value = "idConstraint") Long idConstraint) throws ResourceNotFoundException{
+	  public  Map<String, Boolean> deleteConstraint(@PathVariable(value = "idConstraint") Long idConstraint) throws ResourceNotFoundException, Exception{
 		  
 		  return this.ia.deleteConstraint(idConstraint);
 		  
