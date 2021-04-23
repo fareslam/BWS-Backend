@@ -29,7 +29,7 @@ public class Device {
     @Size(min = 3, max = 20)
 	private String name;
 
-	public String imageurl;
+	//public String imageurl;
 	@OneToMany(mappedBy="device",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<UserDevices> list_user_devices;
 	
@@ -66,19 +66,19 @@ public class Device {
 	}
 
 
-	public String getImageurl() {
+	/*public String getImageurl() {
 		return imageurl;
 	}
 
 	public void setImageurl(String imageurl) {
 		this.imageurl = imageurl;
-	}
+	}*/
 
 	public Device() {}
-	public Device(String reference, String name,String im, Space space,Constraint_CO2 constraint_co2) {
+	public Device(String reference, String name, Space space,Constraint_CO2 constraint_co2) {
 		this.reference = reference;
 		this.name = name;
-this.imageurl=im;
+//this.imageurl=im;
 		this.space = space;
 		this.constraint_co2 = constraint_co2;
 	}

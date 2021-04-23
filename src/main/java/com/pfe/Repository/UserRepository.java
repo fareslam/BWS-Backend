@@ -70,4 +70,11 @@ public interface UserRepository extends JpaRepository <User,Long>{
 	+ "AND u.cinu =:cinu")
 public List<Device> listDevicesPerUser(@Param("cinu") Long cinu);
 
+
+@Query("select rt.value_co2 FROM Rt_CO2 rt, UserDevices ud, User u,Device d "
+		+ "WHERE ud.udk.cinu =u.cinu "
+		+ "AND ud.udk.reference=d.reference AND rt.reference=d.reference "
+		+ "AND u.cinu =:cinu AND rt.reference=:reference")
+	public List<Float> valueRTperDevPerUser(@Param("cinu") Long cinu,@Param("reference") String reference);
+
 }

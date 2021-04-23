@@ -25,6 +25,7 @@ public interface InterfaceAdmin {
 	public Map<String, Boolean> deleteDevice (String reference) throws ResourceNotFoundException, Exception;
 	public ResponseEntity<?> addDevice (@Valid @RequestBody Device d);
 	public ResponseEntity<?> updateDevice (String reference,Device d) throws ResourceNotFoundException;
+	public ResponseEntity<?> updateDeviceConstraint (String reference,Device d) throws ResourceNotFoundException;
 	public List<Device> listDevices();
 	public ResponseEntity<?> getDeviceByReference(String reference)throws ResourceNotFoundException;
 	

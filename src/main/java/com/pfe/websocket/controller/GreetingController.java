@@ -64,15 +64,12 @@ public class GreetingController {
 		List <Device> lista = this.ur.listDevicesPerUser(cinu);
 		
 		Device d = dr.findByReference(reference) ;
-		//= dr.findByReference(reference)
+	
 		
-		if (lista.contains(d)==true) {throw new Exception("device is not in the list!");}
+	//	if (lista.contains(d)==true) {throw new Exception("device is not in the list!");}
 		for(int i =0;i<lista.size();i++) {
 			
-		/*	if(!(lista.contains(d))) {
-				throw new Exception("This device is not actually in list !");
-			}*/
-			
+	
 			
 			Long c = d.getIdConstraint();
 			Constraint_CO2 ct = this.cr.findByIdConstraint(c);
@@ -133,13 +130,10 @@ public class GreetingController {
 	    
     }}
 			return new Greeting("Hello, " + cinu+HtmlUtils.htmlEscape(message.getName()) + "!");	
-    }}
+    }
+    
+
+}
   
     
-/*    @MessageMapping("/hello")
-    @SendTo("/topic/greetings")
-    public List<Device> greeting() throws Exception {
-        Thread.sleep(1000); // simulated delay
-        return this.dr.findAll();
-    }
-*/
+

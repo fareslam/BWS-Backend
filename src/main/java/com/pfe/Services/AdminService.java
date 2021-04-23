@@ -92,7 +92,7 @@ public class AdminService implements InterfaceAdmin {
 	@Override
 	public ResponseEntity<?> addDevice(@Valid @RequestBody Device d) {
 		String ch=d.getName();
-		String img=d.getImageurl();
+		//String img=d.getImageurl();
 		
 		if (dr.existsByReference(d.getReference())) {
 			return ResponseEntity
@@ -100,12 +100,12 @@ public class AdminService implements InterfaceAdmin {
 					.body(new MessageResponse("Error: Device's Reference is already taken!"));
 		}
 		
-		
+		/*
 		if ((!cr.existsByIdConstraint(d.getIdConstraint()))) {
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Error: Inexistant Constraint for this device!"));
-		}
+		}*/
 		
 		
 		if ((!sr.existsByIdSpace(d.getIdSpace()))) {
@@ -116,9 +116,9 @@ public class AdminService implements InterfaceAdmin {
 		
 		Device device=new Device();
 		device.setReference(d.getReference());
-		device.setImageurl(d.getImageurl());
+		//device.setImageurl(d.getImageurl());
 		device.setName(d.getName());
-		device.setIdConstraint(d.getIdConstraint());
+		//device.setIdConstraint(d.getIdConstraint());
 		device.setIdSpace(d.getIdSpace());
 		
 		if ((ch.length()==0)||(ch==null)) 
@@ -126,9 +126,9 @@ public class AdminService implements InterfaceAdmin {
 				.body(new MessageResponse("Error in name!"));
 
 		
-		if ((img.length()==0)||(img==null) )
+	/*	if ((img.length()==0)||(img==null) )
 			return ResponseEntity.badRequest()
-				.body(new MessageResponse("Please choose a picture !"));
+				.body(new MessageResponse("Please choose a picture !"));*/
 
 		return new ResponseEntity<>(this.dr.save(device), HttpStatus.CREATED);
 	}
@@ -149,7 +149,7 @@ String ch=d.getName();
 		
 	
 		device.setReference(d.getReference());
-		device.setImageurl(d.getImageurl());
+	//	device.setImageurl(d.getImageurl());
 		device.setName(d.getName());
 		device.setIdConstraint(d.getIdConstraint());
 		device.setIdSpace(d.getIdSpace());
@@ -424,6 +424,20 @@ String ch=d.getName();
 		return new ResponseEntity<>(c, HttpStatus.OK);
 		
 		
+	}
+
+	@Override
+	public ResponseEntity<?> updateDeviceConstraint(@PathVariable(value = "reference") String reference, @Valid @RequestBody Device d) 
+			throws ResourceNotFoundException{
+
+		Device device = dr.findByReference(reference);
+		if (device==null) {	return new ResponseEntity<>("device with ref"+ reference+" is not found", HttpStatus.NOT_FOUND);}
+
+
+		device.setIdConstraint(d.getIdConstraint());
+
+
+		return new ResponseEntity<>(this.dr.save(device), HttpStatus.CREATED);
 	}
 	}
 

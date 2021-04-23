@@ -84,6 +84,12 @@ public class AdminController {
 		return this.ia.updateDevice(reference, d);
 	}
 	
+	@PutMapping("/device/ct/update/{reference}")	
+	public ResponseEntity<?> updateDeviceConstraint(@PathVariable(value = "reference") String reference, @Valid @RequestBody Device d) 	
+	throws ResourceNotFoundException{
+		
+		return this.ia.updateDeviceConstraint(reference, d);
+	}
 	
 	
 	@GetMapping("/device/all")	
@@ -91,7 +97,10 @@ public class AdminController {
 		return this.ia.listDevices();
 	}
 	
-	
+	@GetMapping("/device/ct/all")	
+	public List<Device> listDevicesCT(){
+		return this.ar.devicesbyIdConstraint();	
+	}
 	
 	@GetMapping("/device/{reference}")	
 	public ResponseEntity<?>  getDeviceByReference(@PathVariable(value = "reference") String reference)throws ResourceNotFoundException{
