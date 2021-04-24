@@ -1,4 +1,4 @@
-package com.pfe.Entity.History;
+package com.pfe.Entity.Alert;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -7,10 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class HistKey implements Serializable{
+public class AlertKey implements Serializable{
 
 	
-
 
 	@Column(name="reference")
     private String reference;
@@ -44,19 +43,19 @@ public class HistKey implements Serializable{
 
 
 
-	public HistKey() {
-		super();
+	public AlertKey() {
+
 	}
 
 
 
-	public HistKey(String reference, Date date) {
+	public AlertKey(String reference, Date date) {
 	
 		this.reference = reference;
 		this.date = date;
 	}
 
-
+	
 	
 	
 	

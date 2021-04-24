@@ -47,13 +47,13 @@ public class TestController {
 	}
 		return lista;
 }
-	
+	/*
 	@GetMapping("/rt/{cinu}/{reference}")	
 	public List<Float> listRTValues(@PathVariable Long cinu,@PathVariable String reference) throws ResourceNotFoundException,Exception{
 		User u = ur.findByCinu(cinu)
 				.orElseThrow(() -> new ResourceNotFoundException("Unkown user with cin: " + cinu));
 		Device d = dr.findByReference(reference) ;
-	return this.ur.valueRTperDevPerUser(cinu, reference);
-}
+	return this.ur.valueRTperDevPerUser(cinu, reference);}  */
+
 	
 }

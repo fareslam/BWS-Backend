@@ -1,23 +1,36 @@
-package com.pfe.Entity;
+package com.pfe.Entity.Alert;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.pfe.Entity.History.HistKey;
+import com.pfe.Entity.History.History_CO2;
 
 @Entity
 @Table(name="alert_co2")
 public class Alert_C02 {
-	@Id	
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long idAlert;
+	  @EmbeddedId
+	  private  AlertKey ak;
+
 	private String message;
-	public long getIdAlert() {
-		return idAlert;
+
+
+
+	public AlertKey getAk() {
+		return ak;
 	}
-	public void setIdAlert(long idAlert) {
-		this.idAlert = idAlert;
+	public void setAk(AlertKey ak) {
+		this.ak = ak;
 	}
 	public String getMessage() {
 		return message;
@@ -26,11 +39,9 @@ public class Alert_C02 {
 		this.message = message;
 	}
 	public Alert_C02(String message) {
-		super();
+
 		this.message = message;
 	}
-
-
 
 public Alert_C02() {}
 	

@@ -18,6 +18,7 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.pfe.Entity.RealTime.Rt_CO2;
 import com.pfe.Entity.UserDevices.UserDevices;
 
 @Entity

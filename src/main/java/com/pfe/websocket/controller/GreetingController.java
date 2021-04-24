@@ -12,14 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.HtmlUtils;
 
-import com.pfe.Entity.Alert_C02;
 import com.pfe.Entity.Constraint_CO2;
 import com.pfe.Entity.Device;
-import com.pfe.Entity.Rt_CO2;
 import com.pfe.Entity.SubUser;
 import com.pfe.Entity.User;
+import com.pfe.Entity.Alert.Alert_C02;
 import com.pfe.Entity.History.HistKey;
 import com.pfe.Entity.History.History_CO2;
+import com.pfe.Entity.RealTime.Rt_CO2;
 import com.pfe.Repository.AlertRepository;
 import com.pfe.Repository.ConstraintRepository;
 import com.pfe.Repository.DeviceRepository;
@@ -67,7 +67,7 @@ public class GreetingController {
 	
 		
 	//	if (lista.contains(d)==true) {throw new Exception("device is not in the list!");}
-		for(int i =0;i<lista.size();i++) {
+	/*	for(int i =0;i<lista.size();i++) {
 			
 	
 			
@@ -79,7 +79,7 @@ public class GreetingController {
 	
 			
 			for(int j=0;j<5;j++) {
-				/* Thread.sleep(1000); */
+				/* Thread.sleep(1000); 
 				
 				
 				
@@ -128,7 +128,7 @@ public class GreetingController {
 			
 			}
 	    
-    }}
+    }}*/
 			return new Greeting("Hello, " + cinu+HtmlUtils.htmlEscape(message.getName()) + "!");	
     }
     
