@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.pfe.Entity.Area;
@@ -16,6 +17,7 @@ import com.pfe.Entity.SignupRequest;
 import com.pfe.Entity.Space;
 import com.pfe.Entity.User;
 import com.pfe.Entity.ClientArea.ClientArea;
+import com.pfe.Entity.UserDevices.UDKey;
 import com.pfe.Entity.UserDevices.UserDevices;
 import com.pfe.exception.ResourceNotFoundException;
 
@@ -38,9 +40,12 @@ public interface InterfaceAdmin {
 	/* User Device Management */
 	  public ResponseEntity<?> affectUserDevice(@Valid @RequestBody UserDevices ud);
 	  public List<UserDevices> ListUserDevices();
+	
+
+	  public Map<String, Boolean>  deleteUserDevice( Long cinu,String reference) throws ResourceNotFoundException,Exception ;
 	  
 	  /*Constraint managment */
-	  public Constraint_CO2 addConstraint(@Valid @RequestBody Constraint_CO2 c);
+	  public ResponseEntity<?> addConstraint(@Valid @RequestBody Constraint_CO2 c);
 	  public List<Constraint_CO2>listConstraints();
 	  public Map<String, Boolean> deleteConstraint(Long idConstraint)  throws ResourceNotFoundException, Exception;
 		public ResponseEntity<?> updateConstraint (Long idConstraint,@Valid @RequestBody Constraint_CO2 c) throws ResourceNotFoundException, Exception;
@@ -61,5 +66,6 @@ public interface InterfaceAdmin {
 	  /*Client Area Management*/
 	  public ClientArea addClientArea(ClientArea ca);
 	  public  List<ClientArea> listClientArea();
+	  public Map<String, Boolean>  deleteClientArea( Long cinu,Long idArea) throws ResourceNotFoundException,Exception ;
 
 }

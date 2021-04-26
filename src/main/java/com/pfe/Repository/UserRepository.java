@@ -16,6 +16,7 @@ import com.pfe.Entity.Space;
 import com.pfe.Entity.SubUser;
 import com.pfe.Entity.User;
 import com.pfe.Entity.SubUserSpace.SubUser_Space;
+import com.pfe.Entity.UserDevices.UserDevices;
 
 
 @Repository
@@ -56,6 +57,7 @@ public interface UserRepository extends JpaRepository <User,Long>{
 	public List<SubUser_Space> listSubUsersInSpaceByUser(@Param("cinu") Long cinu);
 	
 	
+			
 	
 	@Query("select a.geojson FROM Area a,User u,ClientArea ca "
 			+ "WHERE u.cinu=ca.ua_key.cinu AND ca.ua_key.idArea=a.idArea "

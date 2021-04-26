@@ -1,5 +1,6 @@
 package com.pfe.Controllers;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -7,6 +8,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,9 +28,12 @@ import com.pfe.Entity.SignupRequest;
 import com.pfe.Entity.Space;
 import com.pfe.Entity.User;
 import com.pfe.Entity.ClientArea.ClientArea;
+import com.pfe.Entity.UserDevices.UDKey;
 import com.pfe.Entity.UserDevices.UserDevices;
 import com.pfe.Repository.AdministratorRepository;
+import com.pfe.Repository.DeviceRepository;
 import com.pfe.Repository.SubUserRepository;
+import com.pfe.Repository.UserDevicesRepository;
 import com.pfe.Repository.UserRepository;
 import com.pfe.Services.InterfaceAdmin;
 import com.pfe.Services.InterfaceUser;
@@ -44,6 +49,12 @@ public class AdminController {
 	
 	@Autowired
 	UserRepository ur;
+	
+	@Autowired
+	UserDevicesRepository udr;
+	
+	@Autowired
+	DeviceRepository dr;
 	
 	@Autowired
 	AdministratorRepository ar;
@@ -147,6 +158,17 @@ public class AdminController {
 		  
 		  return this.ia.affectUserDevice(ud);
 	  }
+	
+	
+
+	
+	
+	@DeleteMapping("/userDevices/delete/{cinu}/{reference}")
+	  public Map<String, Boolean>  deleteUserDevice(@PathVariable(value = "cinu") Long cinu,
+			  @PathVariable(value = "reference") String reference) throws ResourceNotFoundException,Exception {
+	return this.ia.deleteUserDevice(cinu, reference);
+		
+	  }
 	  
 	@GetMapping("/userDevices/all")  
 	 public List<UserDevices> listuserDevices()
@@ -156,7 +178,7 @@ public class AdminController {
 	  
 	  /* ********Constraint managment **************/
 	@PostMapping("/constraint/add")
-	  public Constraint_CO2 addConstraint(@Valid @RequestBody Constraint_CO2 c) {
+	  public ResponseEntity<?> addConstraint(@Valid @RequestBody Constraint_CO2 c) {
 		  
 		  return this.ia.addConstraint(c);
 		  
@@ -220,6 +242,13 @@ public class AdminController {
 	  public List<ClientArea> listClientArea()  {
 		  return this.ia.listClientArea();
 	  } 
+	  
+		@DeleteMapping("/clientArea/delete/{cinu}/{idArea}")
+		  public Map<String, Boolean>  deleteUserDevice(@PathVariable(value = "cinu") Long cinu,
+				  @PathVariable(value = "idArea") Long idArea) throws ResourceNotFoundException,Exception {
+		return this.ia.deleteClientArea(cinu, idArea);
+			
+		  }
 
 	  /* ******** Space managment ****************/
 	  @PostMapping("/space/add")

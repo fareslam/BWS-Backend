@@ -27,7 +27,7 @@ public class UDKey implements Serializable{
 		return cinu;
 	}
 
-	public void setCin(Long cinu) {
+	public void setCinu(Long cinu) {
 		this.cinu = cinu;
 	}
 

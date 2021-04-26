@@ -27,6 +27,7 @@ import com.pfe.Entity.SubUser;
 import com.pfe.Entity.User;
 import com.pfe.Entity.ClientArea.ClientArea;
 import com.pfe.Entity.SubUserSpace.SubUser_Space;
+import com.pfe.Repository.SpaceRepository;
 import com.pfe.Repository.SubUserRepository;
 import com.pfe.Repository.UserRepository;
 import com.pfe.Services.InterfaceUser;
@@ -44,6 +45,10 @@ public class UserController {
 	
 	@Autowired
 	UserRepository ur;
+	
+
+	@Autowired
+	SpaceRepository sr;
 	
 	@Autowired
 	InterfaceUser iu;
@@ -103,6 +108,15 @@ public class UserController {
 		}
 		
 	
+		
+		  @DeleteMapping("/SubUserSpace/delete/{cinu}/{cin}/{idSpace}")
+		  public Map<String, Boolean> SubUser_SpaceByUser(@PathVariable(value = "cinu") Long cinu,@PathVariable(value = "cin") Long cin,@PathVariable(value = "idSpace") Long idSpace) 
+				  throws Exception,ResourceNotFoundException {
+			return this.iu.deleteSubUserSpace(cinu, cin, idSpace);
+		  } 
+		
+		
+		
 	  @GetMapping("/SpacesPerUserDevice/{cinu}")
 	  public List<?> listSubUserSpacesDevice(@PathVariable(value = "cinu") Long cinu) throws ResourceNotFoundException {
 			User u = ur.findByCinu(cinu)

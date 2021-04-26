@@ -22,5 +22,6 @@ public interface InterfaceUser {
 	 /*Employee Space Management*/
 	  public SubUser_Space addSubUser_Space(SubUser_Space sus);
 	  public  List<SubUser_Space> listSubUserspaces();
+	  public Map<String, Boolean>  deleteSubUserSpace( Long cinu,Long cin,Long idSpace) throws ResourceNotFoundException,Exception ;
 
 }

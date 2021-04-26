@@ -30,6 +30,7 @@ import com.pfe.Entity.Space;
 import com.pfe.Entity.SubUser;
 import com.pfe.Entity.User;
 import com.pfe.Entity.ClientArea.ClientArea;
+import com.pfe.Entity.UserDevices.UDKey;
 import com.pfe.Entity.UserDevices.UserDevices;
 import com.pfe.Repository.AreaRepository;
 import com.pfe.Repository.ClientAreaRepository;
@@ -294,8 +295,27 @@ String ch=d.getName();
 
 	/* add a constraint*/
 	@Override
-	public Constraint_CO2 addConstraint(@Valid @RequestBody Constraint_CO2 c) {
-		return this.cr.save(c);
+	public ResponseEntity<?> addConstraint(@Valid @RequestBody Constraint_CO2 cons) {
+		
+		
+		Constraint_CO2 c = new Constraint_CO2();
+		
+		if (cons.getMax_value()<=cons.getMin_value())
+		{			return ResponseEntity.badRequest().body(new MessageResponse("Min value should be lower than max value !!"));
+}
+		else {
+				c.setIdConstraint(cons.getIdConstraint());
+					c.setMax_value(cons.getMax_value());
+					c.setMin_value(cons.getMin_value());
+c.setNameConstraint(cons.getNameConstraint());
+
+	
+
+	return new ResponseEntity<>(this.cr.save(c), HttpStatus.CREATED);	}
+		
+		
+		
+		
 	}
 
 	/* add an area*/
@@ -358,13 +378,18 @@ String ch=d.getName();
 
 		Constraint_CO2 cons = cr.findByIdConstraint(idConstraint);
 				if (cons==null) { throw new Exception("error");}	
+				if (c.getMax_value()<=c.getMin_value())
+				{			return ResponseEntity.badRequest().body(new MessageResponse("Min value should be lower than max value !!"));
+		}
+				else {
 		cons.setIdConstraint(c.getIdConstraint());
 		cons.setMax_value(c.getMax_value());
 		cons.setMin_value(c.getMin_value());
 		cons.setNameConstraint(c.getNameConstraint());
-
+ 
+			
 		
-			return new ResponseEntity<>(this.cr.save(cons), HttpStatus.CREATED);
+			return new ResponseEntity<>(this.cr.save(cons), HttpStatus.CREATED);	}
 		}
 
 	@Override
@@ -439,6 +464,43 @@ String ch=d.getName();
 
 		return new ResponseEntity<>(this.dr.save(device), HttpStatus.CREATED);
 	}
+
+	@Override
+	  public Map<String, Boolean>  deleteUserDevice(@PathVariable(value = "cinu") Long cinu,
+			  @PathVariable(value = "reference") String reference) throws ResourceNotFoundException,Exception {
+		User u = ur.findByCinu(cinu)
+				.orElseThrow(() -> new ResourceNotFoundException("Unkown user with cin : " + cinu));
+		
+		Device device = dr.findByReference(reference);
+		if (device==null) {throw new Exception("device with ref "+ reference+" is not found");}
+		
+		UserDevices ud=this.udr.UserDevicesByCR(cinu, reference);
+		
+		this.udr.delete(ud);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("Device deleted from user !", Boolean.TRUE);
+		return response;
+		
+	  }
+
+	@Override
+	public Map<String, Boolean> deleteClientArea(@PathVariable(value = "cinu") Long cinu, @PathVariable(value = "idArea") Long idArea) throws ResourceNotFoundException, Exception {
+		// TODO Auto-generated method stub
+		User u = ur.findByCinu(cinu)
+				.orElseThrow(() -> new ResourceNotFoundException("Unkown user with cin : " + cinu));
+		
+		Area a = ar.findByIdArea(idArea)
+				.orElseThrow(() -> new RuntimeException("Error: Area is not found."));
+		
+		ClientArea ca=this.car.ClientAreaByCI(cinu, idArea);
+		
+		this.car.delete(ca);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("Area deleted from user !", Boolean.TRUE);
+		return response;
+	}
+
+
 	}
 
 	

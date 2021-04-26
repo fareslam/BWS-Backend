@@ -21,12 +21,15 @@ import com.pfe.Entity.Device;
 import com.pfe.Entity.MessageResponse;
 import com.pfe.Entity.Role;
 import com.pfe.Entity.SignupRequest;
+import com.pfe.Entity.Space;
 import com.pfe.Entity.SubUser;
 import com.pfe.Entity.User;
+import com.pfe.Entity.ClientArea.ClientArea;
 import com.pfe.Entity.SubUserSpace.SubUser_Space;
 import com.pfe.Repository.RoleRepository;
 import com.pfe.Repository.SubUserRepository;
 import com.pfe.Repository.SubUserSpaceRepository;
+import com.pfe.Repository.SpaceRepository;
 import com.pfe.Repository.UserRepository;
 import com.pfe.exception.ResourceNotFoundException;
 
@@ -41,6 +44,9 @@ public class UserService implements InterfaceUser {
 	
 	@Autowired
 	SubUserSpaceRepository susr;
+	
+	@Autowired
+	SpaceRepository sr;
 	
 	@Autowired
 	UserRepository ur;
@@ -226,6 +232,30 @@ public ResponseEntity<?> UpdateSubUser(@PathVariable(value = "cinu") Long cinu,
 	public List<SubUser_Space> listSubUserspaces() {
 		// TODO Auto-generated method stub
 		return this.susr.findAll();
+	}
+
+	@Override
+	public Map<String, Boolean> deleteSubUserSpace(@PathVariable(value = "cinu") Long cinu, @PathVariable(value = "cin") Long cin,
+			@PathVariable(value = "idSpace") Long idSpace)
+			throws ResourceNotFoundException, Exception {
+		// TODO Auto-generated method stub
+		User u = ur.findByCinu(cinu)
+				.orElseThrow(() ->new ResourceNotFoundException("Unkown User with CIN : " + cinu));
+		
+		
+		SubUser su = sur.findByCin(cin)
+				.orElseThrow(() -> new ResourceNotFoundException("Unkown SubUser with CIN : " + cin));
+		
+		Space s = sr.findByIdSpace(idSpace)
+				.orElseThrow(() -> new ResourceNotFoundException("Unkown Space with ID : " + idSpace));		
+				
+				
+		SubUser_Space subuserspace=this.susr.SubUserSpaceByUser(cinu, cin, idSpace);
+		
+		this.susr.delete(subuserspace);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("Space removed from user !", Boolean.TRUE);
+		return response;
 	}
 
 	
