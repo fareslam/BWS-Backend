@@ -19,7 +19,7 @@ public class RTKey implements Serializable{
 	}
 
 	public RTKey(String reference) {
-		super();
+	
 		this.reference = reference;
 	}
 	
