@@ -281,6 +281,16 @@ public class AdminController {
 			return this.ia.updateSpace(idSpace, s);
 		}
 		
+		
+		/* *** Real Time Managment ***********/
+		@GetMapping("/rt/{reference}")	
+		public List<Float> listValRT(@PathVariable(value = "reference") String reference) 	
+		throws ResourceNotFoundException{
+			
+			return this.ar.AllvaluesRT(reference);
+		}
+		
+		
 }
 	
 	

@@ -8,6 +8,6 @@ import com.pfe.Entity.RealTime.Rt_CO2;
 
 
 @Repository
-public interface RtRepository extends JpaRepository <Rt_CO2,Long>{
+public interface RtRepository extends JpaRepository <Rt_CO2,String>{
 
 }

@@ -58,35 +58,42 @@ public class GreetingController {
 	
     @MessageMapping("/hello/{cinu}/{reference}")
     @SendTo("/topic/greetings")
-    public Greeting greeting(@DestinationVariable Long cinu,@DestinationVariable String reference,HelloMessage message) throws Exception {
+    public void greeting(@DestinationVariable Long cinu,@DestinationVariable String reference) throws Exception {
     	Thread t=new Thread();
     	t.start();
     do
     	{
-		User u = ur.findByCinu(cinu)
+	/*	User u = ur.findByCinu(cinu)
 				.orElseThrow(() -> new ResourceNotFoundException("Unkown user with cin: " + cinu));
 		
-		List <Device> lista = this.ur.listDevicesPerUser(cinu);
+		List <Device> lista = this.ur.listDevicesPerUser(cinu);*/
 	
 		Device d = dr.findByReference(reference) ;
 		Rt_CO2 rt = new Rt_CO2();	
-		RTKey rtk=new RTKey();
+		/*RTKey rtk=new RTKey();
 		rtk.setReference(d.getReference());
-		rt.setRtk(rtk);
+		rt.setRtk(rtk);*/
+		rt.setReference(d.getReference());
 		Float v=(float)(Math.random() * 3.5*10+1/7);
 		rt.setValue_co2(v);
 		rt.setDate(new Date());
-		HistKey hk=new HistKey(d.getReference(),rt.getDate());
+		/*HistKey hk=new HistKey(d.getReference(),rt.getDate());
 		
+	
+		/*h.setHk(hk);
+	h.setRt_co2_reference(d.getReference());*/
 		History_CO2 h = new History_CO2();
-		h.setHk(hk);
+		h.setDate(rt.getDate());
+		h.setReference(d.getReference());
 		h.setValue(v);
 		this.hr.save(h);
 		
 		Alert_C02 a =new Alert_C02();
-		AlertKey ak=new AlertKey(d.getReference(),h.getHk().getDate());
+		/*AlertKey ak=new AlertKey(d.getReference(),h.getHk().getDate());
 		
-		a.setAk(ak);
+		a.setAk(ak);*/
+		a.setReference(d.getReference());
+		a.setDate(h.getDate());
 		Long c = d.getIdConstraint();
 		Constraint_CO2 ct = this.cr.findByIdConstraint(c);
 		
@@ -106,68 +113,8 @@ public class GreetingController {
     	}
 	while (!(t.isAlive()));
 	//	if (lista.contains(d)==true) {throw new Exception("device is not in the list!");}
-	/*	for(int i =0;i<lista.size();i++) {
-			
-	
-			
-	
-			
-	
-			 
-	
-			
-			for(int j=0;j<5;j++) {
-				/* Thread.sleep(1000); 
-				
-				
-				
 	
 				
-			if(ct.getMin_value()>(float)(Math.random() * j*10+1/7))
-			{			Rt_CO2 rt = new Rt_CO2();	
-				rt.setValue_co2((float)(Math.random() * j*10+15/7));	
-			Date da = new Date();
-			rt.setDate(da);
-			rt.setReference(reference);
-			this.rtr.save(rt);
-				Alert_C02 a = new Alert_C02();
-				a.setMessage(" co2 rate is very LOW!!");
-				this.ar.save(a);
-				
-				HistKey histkey = new HistKey();
-				histkey.setIdAlert(a.getIdAlert());
-				histkey.setIdRt(rt.getIdRt());
-				
-				History_CO2 h = new History_CO2();
-				h.setHk(histkey);
-				h.setDateHistory(da);
-				this.hr.save(h);
-			}
-			else if (ct.getMax_value()<(float)(Math.random() * j*10+1500/7)) {
-				{	Rt_CO2 rt = new Rt_CO2();	
-				rt.setValue_co2((float)(Math.random() * j*10+1500/7));	
-				Date da = new Date();
-				rt.setDate(da);
-				rt.setReference(reference);
-				this.rtr.save(rt);
-				Alert_C02 a = new Alert_C02();
-				a.setMessage(" co2 rate is very HIGH !!");
-				this.ar.save(a);
-				
-				HistKey histkey = new HistKey();
-				histkey.setIdAlert(a.getIdAlert());
-				histkey.setIdRt(rt.getIdRt());
-				
-				History_CO2 h = new History_CO2();
-				h.setHk(histkey);
-				h.setDateHistory(da);
-				this.hr.save(h);
-			}
-			
-			}
-	    
-    }}*/
-			return new Greeting("Hello, " + cinu+HtmlUtils.htmlEscape(message.getName()) + "!");	
     }
     
 

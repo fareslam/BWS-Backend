@@ -1,5 +1,7 @@
 package com.pfe.Repository;
 
+import java.util.Date;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
@@ -11,6 +13,6 @@ import com.pfe.Entity.Alert.Alert_C02;
 
 
 @Repository
-public interface AlertRepository extends JpaRepository<Alert_C02,Long>{
+public interface AlertRepository extends JpaRepository<Alert_C02,Date>{
 
 }

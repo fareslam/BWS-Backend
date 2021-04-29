@@ -23,4 +23,10 @@ public interface AdministratorRepository extends JpaRepository<Administrator,Lon
 	
 	@Query("select d FROM Device d WHERE d.idConstraint IS NULL") 
 	public List<Device> devicesbyIdConstraint();
+	
+	
+	@Query("select h.value FROM History_CO2 h,Device d,Rt_CO2 rt"
+			+ " WHERE h.reference=rt.reference AND rt.reference=d.reference "
+			+ "AND d.reference =:reference") 
+	public List<Float> AllvaluesRT(@Param("reference") String reference);
 }

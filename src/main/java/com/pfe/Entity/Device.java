@@ -48,6 +48,10 @@ public class Device {
 	
 	@OneToMany(mappedBy="device",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Rt_CO2> list_rt_CO2;
+	
+	
+	
+	
 
 	public String getReference() {
 		return reference;
