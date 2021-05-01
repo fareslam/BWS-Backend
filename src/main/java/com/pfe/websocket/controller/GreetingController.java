@@ -90,7 +90,7 @@ public class GreetingController {
 		
 		Alert_C02 a =new Alert_C02();
 		/*AlertKey ak=new AlertKey(d.getReference(),h.getHk().getDate());
-		
+		 
 		a.setAk(ak);*/
 		a.setReference(d.getReference());
 		a.setDate(h.getDate());

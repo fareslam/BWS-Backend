@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.pfe.Repository.RoleRepository;
+import com.pfe.Repository.RtRepository;
 import com.pfe.Entity.Area;
 import com.pfe.Entity.Constraint_CO2;
 import com.pfe.Entity.Device;
@@ -32,10 +33,12 @@ import com.pfe.Entity.User;
 import com.pfe.Entity.ClientArea.ClientArea;
 import com.pfe.Entity.UserDevices.UDKey;
 import com.pfe.Entity.UserDevices.UserDevices;
+import com.pfe.Repository.AlertRepository;
 import com.pfe.Repository.AreaRepository;
 import com.pfe.Repository.ClientAreaRepository;
 import com.pfe.Repository.ConstraintRepository;
 import com.pfe.Repository.DeviceRepository;
+import com.pfe.Repository.HistoryRepository;
 import com.pfe.Repository.SpaceRepository;
 import com.pfe.Repository.SubUserRepository;
 import com.pfe.Repository.UserDevicesRepository;
@@ -58,6 +61,12 @@ public class AdminService implements InterfaceAdmin {
 	@Autowired
 	DeviceRepository dr;  
 	
+	@Autowired
+	HistoryRepository hr;  
+	
+	@Autowired
+	AlertRepository alr;  
+	
 	@Autowired 
 	UserDevicesRepository udr;
 	
@@ -66,6 +75,9 @@ public class AdminService implements InterfaceAdmin {
 	
 	@Autowired
 	AreaRepository ar;
+	
+	@Autowired
+	RtRepository rtr;
 	
 	@Autowired
 	SpaceRepository sr;
@@ -83,6 +95,9 @@ public class AdminService implements InterfaceAdmin {
 		if (d==null) {throw new Exception ("unkown device with ref "+reference);}
 			
 				dr.delete(d);
+				rtr.deleteByReference(d.getReference());
+				hr.deleteByReference(d.getReference());
+				alr.deleteByReference(d.getReference());
 			
 			Map<String, Boolean> response = new HashMap<>();
 			response.put("deleted device !", Boolean.TRUE);

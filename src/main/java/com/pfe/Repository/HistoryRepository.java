@@ -12,4 +12,6 @@ import com.pfe.Entity.RealTime.Rt_CO2;
 @Repository
 public interface HistoryRepository extends JpaRepository <History_CO2,Date>{
 
+	void deleteByReference(String reference);
+
 }

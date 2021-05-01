@@ -15,4 +15,6 @@ import com.pfe.Entity.Alert.Alert_C02;
 @Repository
 public interface AlertRepository extends JpaRepository<Alert_C02,Date>{
 
+	void deleteByReference(String reference);
+
 }
