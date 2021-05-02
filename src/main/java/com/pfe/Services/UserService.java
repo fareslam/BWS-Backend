@@ -10,6 +10,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,7 +39,8 @@ import com.pfe.exception.ResourceNotFoundException;
 @Transactional
 public class UserService implements InterfaceUser {
 
-
+	@Autowired
+	PasswordEncoder encoder;
 	@Autowired
 	SubUserRepository sur;
 	
@@ -89,7 +91,7 @@ public class UserService implements InterfaceUser {
 		// Create new user's account
 		SubUser user = new SubUser(signUpRequest.getCin(),
 							 signUpRequest.getUsername(),
-							 signUpRequest.getPassword(),
+							encoder.encode(signUpRequest.getPassword()),
 							 signUpRequest.getEmail(),
 							 signUpRequest.getDateBirth(),
 							 signUpRequest.getName(),
