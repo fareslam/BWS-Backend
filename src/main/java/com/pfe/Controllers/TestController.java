@@ -2,18 +2,25 @@ package com.pfe.Controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pfe.Entity.Device;
+import com.pfe.Entity.SubUser;
 import com.pfe.Entity.User;
 import com.pfe.Repository.DeviceRepository;
 import com.pfe.Repository.UserRepository;
+import com.pfe.Services.InterfaceSubUser;
 import com.pfe.exception.ResourceNotFoundException;
 
 @RestController
@@ -28,7 +35,8 @@ public class TestController {
 	
 	@Autowired
 	DeviceRepository dr;
-	
+	@Autowired
+	InterfaceSubUser isu;
 	
 	@GetMapping("/device/{cinu}/{reference}")	
 	public List<Device> listDevices(@PathVariable Long cinu,@PathVariable String reference) throws ResourceNotFoundException,Exception{
@@ -47,13 +55,13 @@ public class TestController {
 	}
 		return lista;
 }
-	/*
-	@GetMapping("/rt/{cinu}/{reference}")	
-	public List<Float> listRTValues(@PathVariable Long cinu,@PathVariable String reference) throws ResourceNotFoundException,Exception{
-		User u = ur.findByCinu(cinu)
-				.orElseThrow(() -> new ResourceNotFoundException("Unkown user with cin: " + cinu));
-		Device d = dr.findByReference(reference) ;
-	return this.ur.valueRTperDevPerUser(cinu, reference);}  */
+	
 
 	
+	
+	@PutMapping("/{cin}/updateProfile")
+	public ResponseEntity<?> updateProfile(@PathVariable(value = "cin") Long cin,@Valid @RequestBody SubUser su) 
+			throws ResourceNotFoundException {
+		return this.isu.updateProfile(cin, su);
+	}
 }

@@ -37,9 +37,10 @@ public class UserDetailsImpl implements UserDetails {
 	private String password;
 
 	private Collection<? extends GrantedAuthority> authorities;
+	private String imageurl;
 
 	public UserDetailsImpl(Long cin, String username,String password,String email,Date dt, String nom,String prenom, long tel,
-			Collection<? extends GrantedAuthority> authorities) {
+			Collection<? extends GrantedAuthority> authorities, String imageurl) {
 		this.cin = cin;
 		this.username = username;
 		this.password = password;
@@ -52,6 +53,7 @@ public class UserDetailsImpl implements UserDetails {
 
 
 		this.authorities = authorities;
+		this.imageurl=imageurl;
 	}
 
 
@@ -71,7 +73,8 @@ public class UserDetailsImpl implements UserDetails {
 				user.getSurname(),
 				user.getTel(),
 
-				authorities);
+				authorities,
+				user.getImageurl());
 	}
 
 
@@ -97,6 +100,18 @@ public class UserDetailsImpl implements UserDetails {
 		this.tel = tel;
 	}
 	
+
+
+
+	public String getImageurl() {
+		return imageurl;
+	}
+
+
+
+	public void setImageurl(String imageurl) {
+		this.imageurl = imageurl;
+	}
 
 
 

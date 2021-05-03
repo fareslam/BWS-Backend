@@ -41,6 +41,7 @@ public class SubUser {
 	@Id
 	private long cin;
 	private String username;
+	public String imageurl;
 	 @NotBlank
 	private String password;
 	private String email;
@@ -69,6 +70,16 @@ public class SubUser {
 	}
 	
 	
+	public String getImageurl() {
+		return imageurl;
+	}
+
+
+	public void setImageurl(String imageurl) {
+		this.imageurl = imageurl;
+	}
+
+
 	@JsonBackReference(value="uuu")
 	public User getUser() {
 		return user;
@@ -141,6 +152,25 @@ public class SubUser {
 		this.cinu=cinu;
 	
 	}
+
+	
+	
+	
+	public SubUser(long cin, String username, String imageurl, @NotBlank String password, String email, Date dateBirth,
+			String name, String surname, long tel, User user) {
+		super();
+		this.cin = cin;
+		this.username = username;
+		this.imageurl = imageurl;
+		this.password = password;
+		this.email = email;
+		this.dateBirth = dateBirth;
+		this.name = name;
+		this.surname = surname;
+		this.tel = tel;
+		this.user = user;
+	}
+
 
 	@JsonManagedReference(value="UserSpace")
 	public List<SubUser_Space> getList_sub_user_spaces() {

@@ -82,7 +82,8 @@ public class AuthController {
 												 userDetails.getDateBirth(),
 												 userDetails.getEmail(), 
 												
-												 roles));
+												 roles,
+												 userDetails.getImageurl()));
 								
 	}
 

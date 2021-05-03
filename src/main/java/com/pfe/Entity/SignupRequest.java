@@ -21,7 +21,7 @@ public class SignupRequest {
 	private long tel;
 	private Long cin_admin;
 	private Long cinu;
-	
+	private String imageurl;
     private Set<String> role;
 
 
@@ -81,6 +81,14 @@ public class SignupRequest {
 	}
 	public String getSurname() {
 		return surname;
+	}
+	
+	
+	public String getImageurl() {
+		return imageurl;
+	}
+	public void setImageurl(String imageurl) {
+		this.imageurl = imageurl;
 	}
 	public void setSurname(String surname) {
 		this.surname = surname;

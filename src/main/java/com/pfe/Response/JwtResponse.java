@@ -17,8 +17,9 @@ public class JwtResponse {
 
 	private String email;
 	private List<String> roles;
-
-	public JwtResponse(String Token, Long cin, String username,String nom,String prenom,long tel,Date dateNaissance, String email, List<String> roles) {
+	private String imageurl;
+	public JwtResponse(String Token, Long cin, String username,String nom,String prenom,long tel,Date dateNaissance, String email,
+			List<String> roles,String imageurl) {
 		this.Token = Token;
 		this.cin = cin;
 		this.username = username;
@@ -28,9 +29,22 @@ public class JwtResponse {
 		this.dateBirth=dateNaissance;
 		this.email = email;
 		this.roles = roles;
+		this.imageurl=imageurl;
 	}
 
 	
+
+	public String getImageurl() {
+		return imageurl;
+	}
+
+
+
+	public void setImageurl(String imageurl) {
+		this.imageurl = imageurl;
+	}
+
+
 
 	public long getTel() {
 		return tel;

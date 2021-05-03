@@ -65,8 +65,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests().antMatchers("/api/auth/**","/ws/**","/api/test/**").permitAll()
 		
 			.antMatchers("/api/bws/admin/**").hasRole("ADMIN")
-			.antMatchers("/api/bws/user/**").hasAnyRole("USER","SUBREAD","SUBWRITE")
-			.antMatchers("/api/bws/subuser/**").hasAnyRole("SUBREAD","SUBWRITE")
+			.antMatchers("/api/bws/user/**").hasAnyRole("USER")
+			.antMatchers("/api/bws/subuser/**").hasAnyRole("SUBREAD","SUBWRITE","USER")
 
 			.anyRequest().authenticated();
 
