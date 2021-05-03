@@ -242,6 +242,7 @@ String ch=d.getName();
 					subuser.setName(signUpRequest.getName());	 
 					subuser.setSurname(signUpRequest.getSurname()); 
 					subuser.setTel(signUpRequest.getTel()); 
+					subuser.setImageurl("../../../assets/users.png");
 							
 		
 

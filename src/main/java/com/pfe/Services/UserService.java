@@ -97,6 +97,7 @@ public class UserService implements InterfaceUser {
 							 signUpRequest.getName(),
 							 signUpRequest.getSurname(),
 							 signUpRequest.getTel(),
+							 "../../../assets/users.png",
 							 u.getCinu()
 							);
 			

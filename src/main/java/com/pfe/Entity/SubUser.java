@@ -109,7 +109,7 @@ public class SubUser {
 	
 	
 	public SubUser(long cin, String username, String password, String email, Date dateBirth, String name, String surname,
-			long tel) {
+			long tel,String imageurl) {
 	
 		this.cin = cin;
 		this.username = username;
@@ -119,6 +119,7 @@ public class SubUser {
 		this.name = name;
 		this.surname = surname;
 		this.tel = tel;
+		this.imageurl=imageurl;
 	
 	}
 
@@ -139,7 +140,7 @@ public class SubUser {
 	}
 
 	public SubUser(long cin, String username, String password, String email, Date dateBirth, String name, String surname,
-			long tel,long cinu) {
+			long tel,String imageurl,long cinu) {
 	
 		this.cin = cin;
 		this.username = username;
@@ -149,6 +150,7 @@ public class SubUser {
 		this.name = name;
 		this.surname = surname;
 		this.tel = tel;
+		this.imageurl=imageurl;
 		this.cinu=cinu;
 	
 	}

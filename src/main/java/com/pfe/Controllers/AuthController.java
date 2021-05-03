@@ -120,7 +120,9 @@ public class AuthController {
 									 signUpRequest.getDateBirth(),
 									 signUpRequest.getName(),
 									 signUpRequest.getSurname(),
-									 signUpRequest.getTel()
+									 signUpRequest.getTel(),
+									 "../../../assets/users.png"
+									 
 							
 						
 							 )  ;

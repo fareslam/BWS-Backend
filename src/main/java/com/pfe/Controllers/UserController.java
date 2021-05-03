@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pfe.Entity.Device;
 import com.pfe.Entity.MessageResponse;
 import com.pfe.Entity.SignupRequest;
 import com.pfe.Entity.Space;
@@ -27,6 +28,7 @@ import com.pfe.Entity.SubUser;
 import com.pfe.Entity.User;
 import com.pfe.Entity.ClientArea.ClientArea;
 import com.pfe.Entity.SubUserSpace.SubUser_Space;
+import com.pfe.Repository.AdministratorRepository;
 import com.pfe.Repository.SpaceRepository;
 import com.pfe.Repository.SubUserRepository;
 import com.pfe.Repository.UserRepository;
@@ -46,7 +48,9 @@ public class UserController {
 	@Autowired
 	UserRepository ur;
 	
-
+	@Autowired
+	AdministratorRepository ar;
+	
 	@Autowired
 	SpaceRepository sr;
 	
@@ -81,6 +85,17 @@ public class UserController {
 		
 		return this.ur.listSubUserByUser(cinu);
 	}
+	
+	
+	
+	@GetMapping("/{cinu}/devices")
+	public List<Device> listDevicesUser(@PathVariable(value = "cinu") Long cinu) throws ResourceNotFoundException {
+		User u = ur.findByCinu(cinu)
+				.orElseThrow(() -> new ResourceNotFoundException("Unkown User with CIN : " + cinu));
+		
+		return this.ur.listDevicesPerUser(cinu);
+	}
+	
 	
 	
 	@GetMapping("/{cin}")
@@ -138,4 +153,14 @@ public class UserController {
 					.orElseThrow(() ->new ResourceNotFoundException("Unkown User with CIN : " + cinu));
 		  return this.ur.listAreasPerUser(cinu);
 	  } 
+	  
+	  
+		/* *** Real Time Managment ***********/
+		@GetMapping("/rt/{reference}")	
+		public List<Float> listValRT(@PathVariable(value = "reference") String reference) 	
+		throws ResourceNotFoundException{
+			
+			return this.ar.AllvaluesRT(reference);
+		}
+		 
 }
