@@ -1,5 +1,6 @@
 	package com.pfe.Controllers;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pfe.Entity.Device;
@@ -26,9 +30,13 @@ import com.pfe.Entity.SignupRequest;
 import com.pfe.Entity.Space;
 import com.pfe.Entity.SubUser;
 import com.pfe.Entity.User;
+import com.pfe.Entity.Alert.Alert_C02;
 import com.pfe.Entity.ClientArea.ClientArea;
+import com.pfe.Entity.History.History_CO2;
 import com.pfe.Entity.SubUserSpace.SubUser_Space;
 import com.pfe.Repository.AdministratorRepository;
+import com.pfe.Repository.AlertRepository;
+import com.pfe.Repository.DeviceRepository;
 import com.pfe.Repository.SpaceRepository;
 import com.pfe.Repository.SubUserRepository;
 import com.pfe.Repository.UserRepository;
@@ -41,9 +49,14 @@ import com.pfe.exception.ResourceNotFoundException;
 @CrossOrigin
 public class UserController {
 
-
+	@Autowired
+	DeviceRepository dr;  
+	
 	@Autowired
 	SubUserRepository sur;
+	
+	@Autowired
+	AlertRepository alr;
 	
 	@Autowired
 	UserRepository ur;
@@ -86,7 +99,48 @@ public class UserController {
 		return this.ur.listSubUserByUser(cinu);
 	}
 	
+	@GetMapping("/report/alert/{cinu}/{reference}")
+	public List<Alert_C02> reportAlertByRef(@PathVariable(value = "cinu") Long cinu,@PathVariable(value = "reference") String reference) throws ResourceNotFoundException,Exception {
+		User u = ur.findByCinu(cinu)
+				.orElseThrow(() -> new ResourceNotFoundException("Unkown User with CIN : " + cinu));
+		Device d = dr.findByReference(reference);
+	if (d==null) {throw new Exception ("unkown device with ref "+reference);}
+		
+		return this.ur.reportAlertByRef(cinu, reference);
+	}
 	
+/*	@GetMapping("/report/alert/date/{cinu}/{date}")
+	public List<Alert_C02 >rAlertByDate(@PathVariable(value = "cinu") Long cinu,
+			@PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date date) throws ResourceNotFoundException{
+		User u = ur.findByCinu(cinu)
+				.orElseThrow(() -> new ResourceNotFoundException("Unkown User with CIN : " + cinu));
+		
+		
+	
+		return this.ur.reportAlertByDate(cinu, date);
+	}*/
+	
+	
+	@GetMapping("/report/history/{cinu}/{reference}")
+	public List<History_CO2> reportHistoryByRef(@PathVariable(value = "cinu") Long cinu,@PathVariable(value = "reference") String reference) throws ResourceNotFoundException,Exception {
+		User u = ur.findByCinu(cinu)
+				.orElseThrow(() -> new ResourceNotFoundException("Unkown User with CIN : " + cinu));
+		Device d = dr.findByReference(reference);
+	if (d==null) {throw new Exception ("unkown device with ref "+reference);}
+		
+		return this.ur.reportHistoryByRef(cinu, reference);
+	}
+	
+	
+	@GetMapping("/report/historyAlert/{cinu}/{reference}")
+	public List<?> reportHistoryAlertByRef(@PathVariable(value = "cinu") Long cinu,@PathVariable(value = "reference") String reference) throws ResourceNotFoundException,Exception {
+		User u = ur.findByCinu(cinu)
+				.orElseThrow(() -> new ResourceNotFoundException("Unkown User with CIN : " + cinu));
+		Device d = dr.findByReference(reference);
+	if (d==null) {throw new Exception ("unkown device with ref "+reference);}
+		
+		return this.ur.reportHistoryAlertByRef(cinu, reference);
+	}
 	
 	@GetMapping("/{cinu}/devices")
 	public List<Device> listDevicesUser(@PathVariable(value = "cinu") Long cinu) throws ResourceNotFoundException {

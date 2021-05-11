@@ -30,12 +30,11 @@ import com.pfe.Repository.RtRepository;
 import com.pfe.Repository.SubUserRepository;
 import com.pfe.Repository.UserRepository;
 import com.pfe.exception.ResourceNotFoundException;
-import com.pfe.websocket.models.Greeting;
-import com.pfe.websocket.models.HelloMessage;
+
 
 
 @RestController
-public class GreetingController {
+public class WebSocketController {
 
 	
 	@Autowired
@@ -111,6 +110,76 @@ public class GreetingController {
 		 rt.setDate(new Date());
 
     	}
+	while (!(t.isAlive()));
+	//	if (lista.contains(d)==true) {throw new Exception("device is not in the list!");}
+	
+				
+    }
+    
+    
+    
+    
+
+    @MessageMapping("/hello/{cinu}")
+    @SendTo("/topic/allDevices")
+    public void alldevices(@DestinationVariable Long cinu) throws Exception {
+    	Thread t=new Thread();
+    	t.start();
+    do
+    	{
+
+		
+		List <Device> listdev = this.dr.findAll();
+	
+		for (int i=0;i<listdev.size();i++)
+		{
+			String ref=listdev.get(i).getReference();
+			Long idC=listdev.get(i).getIdConstraint();
+		
+	
+		
+		Rt_CO2 rt = new Rt_CO2();	
+		/*RTKey rtk=new RTKey();
+		rtk.setReference(d.getReference());
+		rt.setRtk(rtk);*/
+		rt.setReference(ref);
+		Float v=(float)(Math.random() * 3.5*10+1/7);
+		rt.setValue_co2(v);
+		rt.setDate(new Date());
+		/*HistKey hk=new HistKey(d.getReference(),rt.getDate());
+		
+	
+		/*h.setHk(hk);
+	h.setRt_co2_reference(d.getReference());*/
+		History_CO2 h = new History_CO2();
+		h.setDate(rt.getDate());
+		h.setReference(ref);
+		h.setValue(v);
+		this.hr.save(h);
+		
+		Alert_C02 a =new Alert_C02();
+		/*AlertKey ak=new AlertKey(d.getReference(),h.getHk().getDate());
+		 
+		a.setAk(ak);*/
+		a.setReference(ref);
+		a.setDate(h.getDate());
+		Long c = idC;
+		Constraint_CO2 ct = this.cr.findByIdConstraint(c);
+		
+		if(ct.getMin_value()>v)
+		{	a.setMessage(" co2 rate is very LOW!!");
+		this.ar.save(a);}
+		
+		 if (ct.getMax_value()<v) {
+				a.setMessage(" co2 rate is very HIGHT!!");
+				this.ar.save(a);
+		 }
+		 this.rtr.save(rt);
+		 Thread.sleep(8500);
+		 rt.setValue_co2(v);
+		 rt.setDate(new Date());
+
+    	}}
 	while (!(t.isAlive()));
 	//	if (lista.contains(d)==true) {throw new Exception("device is not in the list!");}
 	

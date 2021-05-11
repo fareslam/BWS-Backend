@@ -30,6 +30,7 @@ public class Alert_C02 {
 
 
 	@Id
+	
 	private Date date;
 	
 

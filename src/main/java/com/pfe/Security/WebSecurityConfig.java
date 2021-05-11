@@ -66,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 			.antMatchers("/api/bws/admin/**").hasRole("ADMIN")
 			.antMatchers("/api/bws/user/**").hasAnyRole("USER")
-			.antMatchers("/api/bws/subuser/**").hasAnyRole("SUBREAD","SUBWRITE","USER")
+			.antMatchers("/api/bws/subuser/**").hasAnyRole("SUREAD","SUWRITE","USER")
 
 			.anyRequest().authenticated();
 
