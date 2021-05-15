@@ -1,5 +1,7 @@
 package com.pfe.Entity.ClientArea;
 
+import java.util.Date;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,7 +35,7 @@ public class ClientArea {
     @JoinColumn(name = "cinu",insertable=false,updatable=false)
     private User user;
 
-	private int Number;
+	private Date dateAff;
 	
 	
 	
@@ -42,11 +44,11 @@ public class ClientArea {
 
 	
 
-	public ClientArea(Area area, User user, int number) {
+	public ClientArea(Area area, User user, Date d) {
 		super();
 		this.area = area;
 		this.user = user;
-		Number = number;
+		this.dateAff = d;
 	}
 
 
@@ -94,14 +96,23 @@ public class ClientArea {
 
 
 
-	public int getNumber() {
-		return Number;
+
+
+
+
+	public Date getDateAff() {
+		return dateAff;
 	}
-	public void setNumber(int number) {
-		Number = number;
+
+
+
+
+	public void setDateAff(Date dateAff) {
+		this.dateAff = dateAff;
 	}
-	
-	
+
+
+ 
 	
 	
 	

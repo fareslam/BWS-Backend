@@ -1,5 +1,7 @@
 package com.pfe.Entity.SubUserSpace;
 
+import java.util.Date;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,31 +35,37 @@ public class SubUser_Space {
     @JoinColumn(name = "cin",insertable=false,updatable=false)
     private SubUser sub_user;
 
-	private int Number;
+	private Date dateAff;
 	
 	
 	
 	public SubUser_Space() {}
 	
-	public SubUser_Space( Space space, SubUser subUser,int number) {
+	public SubUser_Space( Space space, SubUser subUser,Date d) {
 	
 
 		this.space = space;
 		this.sub_user = subUser;
-		this.Number = number;
+		this.dateAff = d;
 	}
 	
 	
 
-	public int getNumber() {
-		return Number;
+ 
+	
+	
+	
+
+
+
+	public Date getDateAff() {
+		return dateAff;
 	}
-	public void setNumber(int number) {
-		Number = number;
+
+	public void setDateAff(Date dateAff) {
+		this.dateAff = dateAff;
 	}
-	
-	
-	
+
 	@JsonBackReference(value="SubrSpace")
 	public Space getSpace() {
 		return space;

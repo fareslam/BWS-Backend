@@ -1,5 +1,7 @@
 package com.pfe.Entity.UserDevices;
 
+import java.util.Date;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +24,7 @@ public class UserDevices {
 	@EmbeddedId	
 	private UDKey udk;
 	
-	private int number;
+	private Date dateAff;
 	
 	@ManyToOne
     @JoinColumn(name = "cinu",insertable=false,updatable=false)
@@ -44,9 +46,9 @@ public class UserDevices {
 	public UserDevices() {}
 	
 	
-	public UserDevices(int number, User user,  Device device,Administrator administrator) {
+	public UserDevices(Date d, User user,  Device device,Administrator administrator) {
 	
-		this.number = number;
+		this.dateAff=d;
 		this.user = user;
 		this.device = device;
 		this.administrator=administrator;
@@ -89,13 +91,17 @@ public class UserDevices {
 	}
 
 
-	public int getNumber() {
-		return number;
+	 
+	public Date getDateAff() {
+		return dateAff;
 	}
-	public void setNumber(int number) {
-		this.number = number;
+
+
+	public void setDateAff(Date dateAff) {
+		this.dateAff = dateAff;
 	}
-	
+
+
 	@JsonBackReference(value="userDevices")
 	public User getUser() {
 		return user;
