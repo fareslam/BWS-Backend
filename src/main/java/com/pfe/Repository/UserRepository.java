@@ -105,11 +105,11 @@ public List<History_CO2> reportHistoryByRef(@Param("cinu") Long cinu,@Param("ref
 public List<?> reportHistoryAlertByRef(@Param("cinu") Long cinu,@Param("reference") String reference);
 
 
-/*
+
 @Query("select a FROM Alert_C02 a,UserDevices ud,User u "
 		+ "WHERE ud.udk.cinu =u.cinu "
 		+ "AND ud.udk.reference=a.reference"
 		+ " AND u.cinu =:cinu AND a.date <= :date") 	
 public List<Alert_C02> reportAlertByDate(@Param("cinu") Long cinu, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)  @Param("date") Date date);
-*/
+
 }

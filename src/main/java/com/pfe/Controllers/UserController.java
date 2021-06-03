@@ -109,7 +109,7 @@ public class UserController {
 		return this.ur.reportAlertByRef(cinu, reference);
 	}
 	
-/*	@GetMapping("/report/alert/date/{cinu}/{date}")
+	@GetMapping("/report/alert/date/{cinu}/{date}")
 	public List<Alert_C02 >rAlertByDate(@PathVariable(value = "cinu") Long cinu,
 			@PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date date) throws ResourceNotFoundException{
 		User u = ur.findByCinu(cinu)
@@ -118,7 +118,7 @@ public class UserController {
 		
 	
 		return this.ur.reportAlertByDate(cinu, date);
-	}*/
+	}
 	
 	
 	@GetMapping("/report/history/{cinu}/{reference}")

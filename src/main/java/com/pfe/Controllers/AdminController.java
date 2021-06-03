@@ -28,6 +28,7 @@ import com.pfe.Entity.SignupRequest;
 import com.pfe.Entity.Space;
 import com.pfe.Entity.User;
 import com.pfe.Entity.ClientArea.ClientArea;
+import com.pfe.Entity.RealTime.Rt_CO2;
 import com.pfe.Entity.UserDevices.UDKey;
 import com.pfe.Entity.UserDevices.UserDevices;
 import com.pfe.Repository.AdministratorRepository;
@@ -289,6 +290,15 @@ public class AdminController {
 			
 			return this.ar.AllvaluesRT(reference);
 		}
+		
+		
+		@GetMapping("/device_rt/{reference}")	
+		public Rt_CO2 ValRTDevice(@PathVariable(value = "reference") String reference) 	
+		throws ResourceNotFoundException{
+			
+			return this.dr.DeviceByLastValueRT(reference);
+		}
+		
 		
 		
 }
