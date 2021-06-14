@@ -33,6 +33,7 @@ import com.pfe.Entity.User;
 import com.pfe.Entity.Alert.Alert_C02;
 import com.pfe.Entity.ClientArea.ClientArea;
 import com.pfe.Entity.History.History_CO2;
+import com.pfe.Entity.RealTime.Rt_CO2;
 import com.pfe.Entity.SubUserSpace.SubUser_Space;
 import com.pfe.Repository.AdministratorRepository;
 import com.pfe.Repository.AlertRepository;
@@ -40,6 +41,7 @@ import com.pfe.Repository.DeviceRepository;
 import com.pfe.Repository.SpaceRepository;
 import com.pfe.Repository.SubUserRepository;
 import com.pfe.Repository.UserRepository;
+import com.pfe.Services.InterfaceAdmin;
 import com.pfe.Services.InterfaceUser;
 import com.pfe.exception.ResourceNotFoundException;
 
@@ -60,6 +62,8 @@ public class UserController {
 	
 	@Autowired
 	UserRepository ur;
+	@Autowired
+	InterfaceAdmin ia;
 	
 	@Autowired
 	AdministratorRepository ar;
@@ -216,5 +220,29 @@ public class UserController {
 			
 			return this.ar.AllvaluesRT(reference);
 		}
+		
+		@GetMapping("/device_rt/{reference}")	
+		public Rt_CO2 ValRTDevice(@PathVariable(value = "reference") String reference) 	
+		throws ResourceNotFoundException{
+			
+			return this.dr.DeviceByLastValueRT(reference);
+		}
+		
+		
+		  @GetMapping("/space/{idSpace}")
+		  public   Optional<Space> getSpace(@PathVariable(value = "idSpace") Long idSpace) {
+			  
+			  return this.ia.getSpace(idSpace);
+			  
+		  }
+		  
+		  
+		  @GetMapping("/constraint/{idConstraint}")
+		  public  ResponseEntity<?> getConstraint(@PathVariable(value = "idConstraint") Long idConstraint) {
+			  
+			  return this.ia.getConstraint_CO2(idConstraint);
+			  
+		  }
+		
 		 
 }
