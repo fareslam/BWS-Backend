@@ -1,5 +1,6 @@
 package com.pfe.Controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -176,6 +177,25 @@ public class AdminController {
 	 {
 		return this.ia.ListUserDevices();
 	 }
+	
+	
+	@GetMapping("/devicesNull/all")  
+	 public ResponseEntity<?> listurDevices()
+	 {
+		 List<Device> listdev =new ArrayList<>();
+		 List<Device> devices =this.dr.findAll();
+		 
+		 for (int i=0;i<devices.size();i++) {
+			 if (  (devices.get(i).getList_user_devices()).size()==0) 
+			{ listdev.add(devices.get(i));
+				
+			}	 
+			 
+			
+		 
+	 }
+		return  new ResponseEntity<>(listdev, HttpStatus.OK);
+	 	}
 	  
 	  /* ********Constraint managment **************/
 	@PostMapping("/constraint/add")
