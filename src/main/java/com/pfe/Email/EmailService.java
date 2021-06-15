@@ -44,7 +44,7 @@ public class EmailService {
 			helper.setTo(email);
 			helper.setText(html, true);
 			helper.setSubject("Password reset");
-			helper.setFrom("fareslaamloum@gmail.com");
+			helper.setFrom("sctbewirelesssolutions@gmail.com");
 			sender.send(message);
 
 			response.setMessage("Mail send successfully to : " + email);
